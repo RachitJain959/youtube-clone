@@ -1,12 +1,10 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Home() {
 	return (
 		<div>
-			<Button variant="outline">Clic</Button>
 			<Image src="/logo.svg" width={50} height={50} alt="logo" />
-			<p>YouTube</p>
+			<p className="text-xl tracking-tight font-semibold">YouTube</p>
 		</div>
 	);
 }
