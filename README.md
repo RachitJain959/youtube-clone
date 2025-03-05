@@ -11,4 +11,4 @@ bunx create-next-app@15.6.1
         2. sidebar items
 
         A. Modules-home-ui:
-        1.components 2. layouts
+        1.components 2. layouts 3. Search-Input
