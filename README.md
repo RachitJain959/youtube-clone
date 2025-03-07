@@ -38,3 +38,4 @@ bunx create-next-app@15.6.1
             ```
 
         4.  Add ClerkProvider
+        5.  Add Sign-in & Sign-out pages
