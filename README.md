@@ -40,3 +40,14 @@ bunx create-next-app@15.6.1
         4.  Add ClerkProvider: `<ClerkProvider afterSignOutUrl="/">`
         5.  Add Sign-in & Sign-out pages
         6.  Add onClick events in authenticated routes
+        7.  Protect routes:
+
+        ```js
+        const isProtectedRoute = createRouteMatcher(["/protected(/*)"]);
+
+        export default clerkMiddleware(async (auth, req) => {
+        	if (isProtectedRoute(req)) await auth.protect();
+        });
+        ```
+
+3.  Database
