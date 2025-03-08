@@ -14,7 +14,7 @@ bunx create-next-app@15.6.1
         1. components, 2. layouts, 3. Search-Input, 4. Auth-Button, 5. Home-Sidebar, Main-Section, Personal-Section
 
 2.  Authentication:
-    1.  Integrate Clerk
+    1.  Integrate Clerk:
         1.  Install @clerk/nextjs
 
             ```terminal
@@ -37,5 +37,6 @@ bunx create-next-app@15.6.1
                 // Always run for API routes'/(api|trpc)(.*)',],};
             ```
 
-        4.  Add ClerkProvider
+        4.  Add ClerkProvider: `<ClerkProvider afterSignOutUrl="/">`
         5.  Add Sign-in & Sign-out pages
+        6.  Add onClick events in authenticated routes
