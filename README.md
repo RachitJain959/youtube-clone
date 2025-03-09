@@ -42,22 +42,60 @@ bunx create-next-app@15.6.1
         6.  Add onClick events in authenticated routes
         7.  Protect routes:
 
-        ```js
-        const isProtectedRoute = createRouteMatcher(["/protected(/*)"]);
+            ```js
+            const isProtectedRoute = createRouteMatcher(["/protected(/*)"]);
 
-        export default clerkMiddleware(async (auth, req) => {
-        	if (isProtectedRoute(req)) await auth.protect();
-        });
-        ```
+            export default clerkMiddleware(async (auth, req) => {
+            	if (isProtectedRoute(req)) await auth.protect();
+            });
+            ```
 
 3.  Database setup:
-    1.  Create PostGreSQL DB (www.neon.tech)
-    2.  Setup DrizzleOrm: Only ORM with both relationl(prisma & mongoose) & SQL-likequery APIs, Serverless by default (unlike Prisma)
-        1.
-        2.
+    1. Setup DrizzleOrm: Only ORM with both relationl(prisma & mongoose) & SQL-likequery APIs, Serverless by default (unlike Prisma)
+        1. Step 1 - Install @neondatabase/serverless package:
 
-    3.  Create users schema
-    4.  Migrate changes to DB
+            ```bash
+            bun add drizzle-orm @neondatabase/serverless dotenv
+            bun add -D drizzle-kit tsx
+            ```
+
+        2. Step 2 - Setup connection variables:
+            1. Create PostGreSQL DB (www.neon.tech)
+            2. Get DATABASE_URL
+
+        3. Step 3 - Connect Drizzle ORM to the database:
+           index.ts:
+
+            ```ts
+            import { drizzle } from "drizzle-orm/neon-http";
+            export const db = drizzle(process.env.DATABASE_URL!);
+            ```
+
+        4. Step 4 - Create a table: users schema
+        5. Create a drizzle.config.ts file in the root of your project and add the following content:
+
+            ```ts
+            import "dotenv/config";
+            import { defineConfig } from "drizzle-kit";
+
+            export default defineConfig({
+            	out: "./drizzle",
+            	schema: "./src/db/schema.ts",
+            	dialect: "postgresql",
+            	dbCredentials: {
+            		url: process.env.DATABASE_URL!,
+            	},
+            });
+            ```
+
+        6. Step 6 - Applying changes to the database:
+            ```bash
+            npx drizzle-kit push
+            ```
+
+    2. Create users schema:
+
+    3. Migrate changes to DB
+    4.
     5.
     6.
-    7.
