@@ -50,4 +50,14 @@ bunx create-next-app@15.6.1
         });
         ```
 
-3.  Database
+3.  Database setup:
+    1.  Create PostGreSQL DB (www.neon.tech)
+    2.  Setup DrizzleOrm: Only ORM with both relationl(prisma & mongoose) & SQL-likequery APIs, Serverless by default (unlike Prisma)
+        1.
+        2.
+
+    3.  Create users schema
+    4.  Migrate changes to DB
+    5.
+    6.
+    7.
