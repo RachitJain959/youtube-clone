@@ -51,7 +51,7 @@ bunx create-next-app@15.6.1
             ```
 
 3.  Database setup:
-    1. Setup DrizzleOrm: Only ORM with both relationl(prisma & mongoose) & SQL-likequery APIs, Serverless by default (unlike Prisma)
+    1.  Setup DrizzleOrm: Only ORM with both relationl(prisma & mongoose) & SQL-likequery APIs, Serverless by default (unlike Prisma)
         1. Step 1 - Install @neondatabase/serverless package:
 
             ```bash
@@ -71,8 +71,9 @@ bunx create-next-app@15.6.1
             export const db = drizzle(process.env.DATABASE_URL!);
             ```
 
-        4. Step 4 - Create a table: users schema
-        5. Create a drizzle.config.ts file in the root of your project and add the following content:
+    2.  Create users schema:
+        1. Step 4 - Create a table: users schema
+        2. Create a drizzle.config.ts file in the root of your project and add the following content:
 
             ```ts
             import "dotenv/config";
@@ -88,14 +89,12 @@ bunx create-next-app@15.6.1
             });
             ```
 
-        6. Step 6 - Applying changes to the database:
-            ```bash
-            npx drizzle-kit push
-            ```
+    3.  Migrate changes to DB
+        1. Step 6 - Applying changes to the database:
 
-    2. Create users schema:
+        ```bash
+        npx drizzle-kit push
+        ```
 
-    3. Migrate changes to DB
-    4.
-    5.
-    6.
+4.  Webhook sync:
+    1. Create ngrok (only for development: no URL in dev mode, so ngrok provides that)
