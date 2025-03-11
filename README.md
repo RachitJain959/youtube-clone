@@ -97,4 +97,8 @@ bunx create-next-app@15.6.1
         ```
 
 4.  Webhook sync:
-    1. Create ngrok (only for development: no URL in dev mode, so ngrok provides that)
+    1. Create ngrok (only for development: no URL in dev mode, so ngrok provides that): https://clerk.com/docs/guides/development/webhooks/syncing
+    2. Obtain static domain
+    3. Add script concurrently to local tunnel & app
+    4. Create users webhook: app/api/webhooks/route.ts
+    5. Connect the webhook to Clerk on dashboard
