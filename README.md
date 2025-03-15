@@ -102,3 +102,11 @@ bunx create-next-app@15.6.1
     3. Add script concurrently to local tunnel & app
     4. Create users webhook: app/api/webhooks/route.ts
     5. Connect the webhook to Clerk on dashboard
+
+5.  tRPC(typeScript remote procedure call):
+    1. Why?
+       A. not possible to fetch authenticated queries,
+       B. 'render as you fetch' concept,
+       C. leverage React Server Components(RSCs) as 'loaders',
+       D. faster load time,
+       E. parallel data loading
