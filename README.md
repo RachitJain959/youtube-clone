@@ -110,3 +110,12 @@ bunx create-next-app@15.6.1
        C. leverage React Server Components(RSCs) as 'loaders',
        D. faster load time,
        E. parallel data loading
+    2. Setup:
+        1. Install deps:
+
+            ```bash
+            bun add @trpc/server @trpc/client @trpc/react-query @tanstack/react-query@latest zod client-only server-only
+            ```
+
+        2. Create tRPC router: https://trpc.io/docs/client/react/server-components#2-create-a-trpc-router
+        3. Create a Query Client factory: Create a shared file trpc/query-client.ts that exports a function that creates a QueryClient instance.
