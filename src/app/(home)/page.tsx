@@ -1,10 +1,8 @@
-import Image from "next/image";
+"use client";
+import { trpc } from "@/trpc/client";
 
 export default function Home() {
-	return (
-		<div>
-			<Image src="/logo.svg" width={50} height={50} alt="logo" />
-			<p className="text-xl tracking-tight font-semibold">YouTube2</p>
-		</div>
-	);
+	const { data } = trpc.hello.useQuery({ text: "Ronny" });
+
+	return <div>Client say: {data?.greeting}</div>;
 }
