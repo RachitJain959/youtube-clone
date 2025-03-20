@@ -1,8 +1,8 @@
-"use client";
-import { trpc } from "@/trpc/client";
+import { trpc } from "@/trpc/server";
 
-export default function Home() {
-	const { data } = trpc.hello.useQuery({ text: "Ronny" });
+export default async function Home() {
+	// const { data } = trpc.hello.useQuery({ text: "Ronny" }); client-side rendering
 
+	const data = await trpc.hello({ text: "Ronny" });
 	return <div>Client say: {data?.greeting}</div>;
 }
