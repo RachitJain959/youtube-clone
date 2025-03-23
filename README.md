@@ -122,3 +122,9 @@ bunx create-next-app@15.6.1
         4. Create a tRPC client for Client Components: The trpc/client.tsx is the entrypoint when consuming your tRPC API from client components. In here, import the type definition of your tRPC router and create typesafe hooks using createTRPCReact.
         - Note: Mount the provider in the root of your application (e.g. app/layout.tsx when using Next.js).
         5. Create a tRPC caller for Server Components: To prefetch queries from server components, we use a tRPC caller. The @trpc/react-query/rsc module exports a thin wrapper around createCaller that integrates with your React Query client.
+
+    3. Configuration:
+        1. Enable transformer on tRPC: superjson
+        2. Add auth to tRPC context
+        3. Add protected procedure
+        4. Add rate limiting
