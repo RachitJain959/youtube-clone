@@ -125,6 +125,20 @@ bunx create-next-app@15.6.1
 
     3. Configuration:
         1. Enable transformer on tRPC: superjson
-        2. Add auth to tRPC context
+        2. Add auth to tRPC context:
+
+            ```js
+            const { userId } = await auth();
+            <!-- const { userId } = await currentUser(); -->
+            // 	The currentUser helper returns the Backend User object of the currently active user. It can be used in Server Components, Route Handlers, and Server Actions.
+            // Under the hood, this helper:
+            // calls fetch(), so it is automatically deduped per request.
+            // uses the GET /v1/users/{user_id} endpoint.
+            // counts towards the Backend API request rate limit.
+
+            export type Context = Awaited<ReturnType<typeof createTRPCContext>>;
+
+            ```
+
         3. Add protected procedure
         4. Add rate limiting
