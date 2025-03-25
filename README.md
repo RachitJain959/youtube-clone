@@ -140,5 +140,18 @@ bunx create-next-app@15.6.1
 
             ```
 
-        3. Add protected procedure
+        3. Add protected procedure:
+
+            ```js
+            export const protectedProcedure = t.procedure.use(
+            	async function isAuthed(opts) {
+            		const { ctx } = opts;
+            		if (!ctx.clerkUserId) {
+            			throw new TRPCError({ code: "UNAUTHORIZED" });
+            		}
+            		return opts.next({ ctx: { ...ctx } });
+            	},
+            );
+            ```
+
         4. Add rate limiting
