@@ -2,6 +2,9 @@ import superjson from "superjson";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { cache } from "react";
 import { auth } from "@clerk/nextjs/server";
+import { db } from "@/db";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export const createTRPCContext = cache(async () => {
 	const { userId } = await auth();
@@ -31,6 +34,16 @@ export const protectedProcedure = t.procedure.use(
 			throw new TRPCError({ code: "UNAUTHORIZED" });
 		}
 
-		return opts.next({ ctx: { ...ctx } });
+		const [user] = await db
+			.select()
+			.from(users)
+			.where(eq(users.clerkId, ctx.clerkUserId))
+			.limit(1);
+
+		if (!user) {
+			throw new TRPCError({ code: "UNAUTHORIZED" });
+		}
+
+		return opts.next({ ctx: { ...ctx, user } });
 	},
 );
