@@ -154,4 +154,5 @@ bunx create-next-app@15.6.1
             );
             ```
 
-        4. Add rate limiting
+        4. Add rate limiting:
+            1. Upstash
