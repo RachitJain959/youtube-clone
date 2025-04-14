@@ -92,9 +92,9 @@ bunx create-next-app@15.6.1
     3.  Migrate changes to DB
         1. Step 6 - Applying changes to the database:
 
-        ```bash
-        npx drizzle-kit push
-        ```
+            ```bash
+            npx drizzle-kit push
+            ```
 
 4.  Webhook sync:
     1. Create ngrok (only for development: no URL in dev mode, so ngrok provides that): https://clerk.com/docs/guides/development/webhooks/syncing
@@ -156,3 +156,11 @@ bunx create-next-app@15.6.1
 
         4. Add rate limiting:
             1. Upstash
+
+6.  Video Categories:
+    1. Create categories schema
+    2. Push changes to the database
+    3. Seed categories
+    4. Organize tRPC routes
+    5. Prefetch categories
+    6. Create categories components
