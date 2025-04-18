@@ -163,4 +163,6 @@ bunx create-next-app@15.6.1
     3. Seed categories
     4. Organize tRPC routes
     5. Prefetch categories
-    6. Create categories components
+    6. Create categories components:
+        1. HomeView
+        2. CategorySection

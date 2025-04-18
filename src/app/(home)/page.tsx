@@ -1,9 +1,15 @@
+import { HomeView } from "@/modules/home/ui/views/home-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 // keeping track of all prefetching-or else we will have build errors
 export const dynamic = "force-dynamic";
 
-const Page = () => {
+interface PageProps {
+	searchParams: Promise<{ categoryId?: string }>;
+}
+
+const Page = async ({ searchParams }: PageProps) => {
+	const { categoryId } = await searchParams;
 	// const { data } = trpc.hello.useQuery({ text: "Ronny" }); client-side rendering
 
 	// we are not using trpc on the server side to get the result in a const to use it
@@ -12,7 +18,7 @@ const Page = () => {
 	return (
 		<div>
 			<HydrateClient>
-				<></>
+				<HomeView categoryId={categoryId} />
 			</HydrateClient>
 		</div>
 	);
