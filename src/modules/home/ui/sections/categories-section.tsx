@@ -8,11 +8,11 @@ interface CategoriesSectionProps {
 	categoryId?: string;
 }
 
-export const CategoriesSection = () => {
+export const CategoriesSection = ({ categoryId }: CategoriesSectionProps) => {
 	return (
 		<Suspense fallback={<p>Loading...</p>}>
 			<ErrorBoundary fallback={<p>Error...</p>}>
-				<CategoriesSectionSuspense />
+				<CategoriesSectionSuspense categoryId={categoryId} />
 			</ErrorBoundary>
 		</Suspense>
 	);

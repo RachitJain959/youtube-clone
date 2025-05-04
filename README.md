@@ -166,3 +166,4 @@ bunx create-next-app@15.6.1
     6. Create categories components:
         1. HomeView
         2. CategorySection
+        3. Filter-Carousel.tsx
