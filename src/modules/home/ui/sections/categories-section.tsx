@@ -11,7 +11,11 @@ interface CategoriesSectionProps {
 
 export const CategoriesSection = ({ categoryId }: CategoriesSectionProps) => {
 	return (
-		<Suspense fallback={<p>Loading...</p>}>
+		<Suspense
+			fallback={
+				<FilterCarousel isLoading onSelect={() => {}} data={[]} />
+			}
+		>
 			<ErrorBoundary fallback={<p>Error...</p>}>
 				<CategoriesSectionSuspense categoryId={categoryId} />
 			</ErrorBoundary>
@@ -29,7 +33,11 @@ const CategoriesSectionSuspense = ({ categoryId }: CategoriesSectionProps) => {
 
 	return (
 		<div>
-			<FilterCarousel value={categoryId} data={data} />
+			<FilterCarousel
+				onSelect={(x) => console.log(x)}
+				value={categoryId}
+				data={data}
+			/>
 		</div>
 	);
 };
