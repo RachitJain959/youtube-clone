@@ -166,4 +166,9 @@ bunx create-next-app@15.6.1
     6. Create categories components:
         1. HomeView
         2. CategorySection
-        3. Filter-Carousel.tsx: data fetching, styling, carouselFade, loading
+        3. Filter-Carousel.tsx: data fetching, styling, carouselFade, loading, onSelect-category Search Params
+
+7.  Studio Layout
+    1. Create studio route group
+    2. Create studio layout
+    3. Protect studio route
