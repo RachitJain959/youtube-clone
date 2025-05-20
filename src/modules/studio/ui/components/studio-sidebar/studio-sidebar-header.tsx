@@ -1,4 +1,5 @@
 import { SidebarHeader } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { UserAvatar } from "@/components/user-avatar";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
@@ -6,7 +7,16 @@ import Link from "next/link";
 const StudioSidearHeader = () => {
 	const { user } = useUser();
 
-	if (!user) return null;
+	if (!user)
+		return (
+			<SidebarHeader className="flex items-center justify-center pb-4">
+				<Skeleton className="size-[112px] rounded-full" />
+				<div className="flex flex-col mt-2 items-center">
+					<Skeleton className="h-4 w-[80px]" />
+					<Skeleton className="h-4 w-[100px]" />
+				</div>
+			</SidebarHeader>
+		);
 
 	return (
 		<SidebarHeader className="flex items-center justify-center pb-4">
