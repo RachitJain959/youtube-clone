@@ -172,3 +172,9 @@ bunx create-next-app@15.6.1
     1. Create studio route group
     2. Create studio layout
     3. Protect studio route
+
+8.  Studio Videos:
+    1. Create videos schema
+    2. Push database changes
+    3. Create video procedures
+    4. Add video record creation
