@@ -174,7 +174,8 @@ bunx create-next-app@15.6.1
     3. Protect studio route
 
 8.  Studio Videos:
-    1. Create videos schema
+    1. Create videos schema:
+        1. https://orm.drizzle.team/docs/relations
     2. Push database changes
     3. Create video procedures
     4. Add video record creation

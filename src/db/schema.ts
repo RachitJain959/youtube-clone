@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
 	pgTable,
 	text,
@@ -30,3 +31,22 @@ export const categories = pgTable(
 	},
 	(t) => [uniqueIndex("name_idx").on(t.name)], // creating index on clerk_id to query faster
 );
+
+export const videos = pgTable("videos", {
+	id: uuid("id").primaryKey().defaultRandom(),
+	title: text("title").notNull(),
+	description: text("description"),
+	userId: uuid("user_id")
+		.references(() => users.id, { onDelete: "cascade" })
+		.notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// this type of relation is not required as the above foreign key works similarly. But important to learn for different type of relational queries like PlanetSpace where foreign key does not exist
+export const vdeoRelations = relations(videos, ({ one }) => ({
+	users: one(users, {
+		fields: [videos.userId],
+		references: [users.id],
+	}),
+}));
