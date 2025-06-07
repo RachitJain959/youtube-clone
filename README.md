@@ -176,6 +176,8 @@ bunx create-next-app@15.6.1
 8.  Studio Videos:
     1. Create videos schema:
         1. https://orm.drizzle.team/docs/relations
+        2. https://orm.drizzle.team/docs/relations-v1-v2
     2. Push database changes: bun drizzle-kit push
-    3. Create video procedures
+    3. Create video procedures:
+        1. Create studio router
     4. Add video record creation
