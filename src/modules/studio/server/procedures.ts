@@ -3,6 +3,7 @@ import z from "zod";
 import { db } from "@/db";
 import { videos } from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import { eq } from "drizzle-orm";
 
 export const studioRouter = createTRPCRouter({
 	getMany: protectedProcedure
@@ -17,8 +18,14 @@ export const studioRouter = createTRPCRouter({
 				limit: z.number().min(1).max(100),
 			}),
 		)
-		.query(async () => {
-			const data = await db.select().from(videos);
+		.query(async ({ ctx, input }) => {
+			const { cursor, limit } = input;
+			const { id: userId } = ctx;
+
+			const data = await db
+				.select()
+				.from(videos)
+				.where(eq(videos.userId, userId));
 
 			return data;
 		}),
