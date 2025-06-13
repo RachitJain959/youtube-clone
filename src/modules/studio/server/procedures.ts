@@ -7,6 +7,7 @@ import { eq, or, and, lt, desc } from "drizzle-orm";
 
 export const studioRouter = createTRPCRouter({
 	getMany: protectedProcedure
+		// if you have any useSuspenseInfiniteQuery error
 		.input(
 			z.object({
 				cursor: z
