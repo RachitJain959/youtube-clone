@@ -9,8 +9,7 @@ const Page = () => {
 
 	return (
 		<HydrateClient>
-			<></>
-			{/* <StudioView /> */}
+			<StudioView />
 		</HydrateClient>
 	);
 };

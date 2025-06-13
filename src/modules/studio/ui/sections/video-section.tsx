@@ -1,5 +1,5 @@
 "use client";
 
-export const VideosSetion = () => {
+export const VideosSection = () => {
 	return <div>Videos Section</div>;
 };
