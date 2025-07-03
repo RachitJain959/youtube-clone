@@ -181,3 +181,8 @@ bunx create-next-app@15.6.1
     3. Create video procedures:
         1. Create studio router
     4. Add video record creation
+
+9.  Infinte Loading:
+    1. Add suspense & error boundaries to video components
+    2. Create reusable InfiniteSroll component
+    3. Demonstrate infinite scroll
