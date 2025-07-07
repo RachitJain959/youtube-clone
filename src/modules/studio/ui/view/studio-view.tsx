@@ -1,6 +1,6 @@
 "use client";
 
-import { VideosSection } from "../sections/video-section";
+import { VideosSection } from "../sections/videos-section";
 
 export const StudioView = () => {
 	return (
