@@ -188,4 +188,7 @@ bunx create-next-app@15.6.1
     3. Demonstrate infinite scroll
 
 10. Mux Integration:
-    1.
+    1. Create a responsive modal
+    2. Create mux account: https://www.mux.com/docs/guides/mux-uploader
+    3. Create a 10s video with English audio
+    4. create upload modal
