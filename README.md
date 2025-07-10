@@ -186,3 +186,6 @@ bunx create-next-app@15.6.1
     1. Add suspense & error boundaries to video components
     2. Create reusable InfiniteSroll component
     3. Demonstrate infinite scroll
+
+10. Mux Integration:
+    1.
