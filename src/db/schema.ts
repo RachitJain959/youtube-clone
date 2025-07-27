@@ -44,6 +44,12 @@ export const videos = pgTable("videos", {
 	id: uuid("id").primaryKey().defaultRandom(),
 	title: text("title").notNull(),
 	description: text("description"),
+	muxStatus: text("mux_status"), // uploading/failed/succes
+	muxAssetId: text("mux_asset_id").unique(), // creating id
+	muxUploadId: text("mux_upload_id").unique(), // uploading id to connect asset to the video
+	muxPlaybackId: text("mux_playback_id").unique(), // to generate thumbnails previews
+	muxTrackId: text("mux_track_id").unique(), // for subtitles
+	muxTrackStatus: text("mux_track_status"), // for subtitles
 	userId: uuid("user_id")
 		.references(() => users.id, { onDelete: "cascade" })
 		.notNull(),
