@@ -1,14 +1,18 @@
+import { Button } from "@/components/ui/button";
 import MuxUploader, {
 	MuxUploaderDrop,
 	MuxUploaderFileSelect,
 	MuxUploaderProgress,
 	MuxUploaderStatus,
 } from "@mux/mux-uploader-react";
+import { UploadIcon } from "lucide-react";
 
 interface StudioUploaderProps {
 	endpoint?: string | null;
 	onSuccess: () => void;
 }
+
+const UPLOADER_ID = "video-uploader";
 
 export const StudioUploader = ({
 	endpoint,
@@ -16,7 +20,36 @@ export const StudioUploader = ({
 }: StudioUploaderProps) => {
 	return (
 		<div>
-			<MuxUploader endpoint={endpoint} />
+			<MuxUploader
+				endpoint={endpoint}
+				id={UPLOADER_ID}
+				className="hidden group/uploader"
+			/>
+			<MuxUploaderDrop muxUploader={UPLOADER_ID} className="group/drop">
+				<div
+					slot="heading"
+					className="flex flex-col items-center gap-6"
+				>
+					<div className="flex gap-2 rounded-full bg-muted h-32 w-32 items-center justify-center">
+						<UploadIcon className="size-10 text-muted-foreground transition-all duration-300 group/drop-[&[active]]:animate-bounce" />
+					</div>
+
+					<div className="flex flex-col text-center gap-2">
+						<p className="text-sm">
+							Drag and drop video files to upload
+						</p>
+						<p className="text-xs">
+							Your videos will be private untill you publish them
+						</p>
+					</div>
+
+					<MuxUploaderFileSelect muxUploader={UPLOADER_ID}>
+						<Button type="button" className="rounded-full">
+							Select files
+						</Button>
+					</MuxUploaderFileSelect>
+				</div>
+			</MuxUploaderDrop>
 		</div>
 	);
 };
