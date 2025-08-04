@@ -49,6 +49,22 @@ export const StudioUploader = ({
 						</Button>
 					</MuxUploaderFileSelect>
 				</div>
+
+				<span slot="separator" className="hidden" />
+				<MuxUploaderStatus
+					muxUploader={UPLOADER_ID}
+					className="text-sm"
+				/>
+				<MuxUploaderProgress
+					muxUploader={UPLOADER_ID}
+					className="text-sm"
+					type="percentage"
+				/>
+				<MuxUploaderProgress
+					muxUploader={UPLOADER_ID}
+					className="text-sm"
+					type="bar"
+				/>
 			</MuxUploaderDrop>
 		</div>
 	);
