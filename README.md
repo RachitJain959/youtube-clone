@@ -192,3 +192,16 @@ bunx create-next-app@15.6.1
     2. Create mux account: https://www.mux.com/docs/guides/mux-uploader
     3. Create a 10s video with English audio
     4. create upload modal
+
+11. Mux Webhook:
+    1. Update video schema
+    2. Push database changes
+    3. Handle 'video.asset.ready' event
+        - assign thumbnail
+        - assign preview
+    4. Handle 'video.asset.errored' event
+        - update status
+    5. Handle 'video.asset.deleted' event
+        - delete from database
+    6. Handle 'video.asset.track.ready' event
+        - update trackId and trackStatus
