@@ -50,6 +50,7 @@ export const videos = pgTable("videos", {
 	muxPlaybackId: text("mux_playback_id").unique(), // to generate thumbnails previews
 	muxTrackId: text("mux_track_id").unique(), // for subtitles
 	muxTrackStatus: text("mux_track_status"), // for subtitles
+	thumbnailUrl: text("thumbnail_url"),
 	userId: uuid("user_id")
 		.references(() => users.id, { onDelete: "cascade" })
 		.notNull(),
