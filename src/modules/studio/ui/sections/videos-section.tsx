@@ -70,7 +70,11 @@ const VideosSectionSuspense = () => {
 										<TableCell>
 											<div className="flex items-center gap-4">
 												<div className="relative w-36 shrink-0 aspect-video">
-													<VideoThumbnail />
+													<VideoThumbnail
+														imageUrl={
+															video.thumbnailUrl
+														}
+													/>
 												</div>
 											</div>
 										</TableCell>
