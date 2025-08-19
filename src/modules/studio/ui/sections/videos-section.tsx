@@ -83,6 +83,15 @@ const VideosSectionSuspense = () => {
 														}
 													/>
 												</div>
+												<div className="flex flex-col overflow-hidden gap-y-1">
+													<span className="text-sm line-clamp-1">
+														{video.title}
+													</span>
+													<span className="text-sm line-clamp-1 text-muted-foreground">
+														{video.description ||
+															"No Description"}
+													</span>
+												</div>
 											</div>
 										</TableCell>
 										<TableCell>{video.title}</TableCell>
