@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail";
+import { SnakeCaseToTitle } from "@/lib/utils";
 
 export const VideosSection = () => {
 	return (
@@ -98,7 +99,10 @@ const VideosSectionSuspense = () => {
 										<TableCell>Visibility</TableCell>
 										<TableCell>
 											<div className="flex items-center">
-												{video.muxStatus}
+												{/* "video_ready", "video_error","asset_ready"====> "Video Ready" */}
+												{SnakeCaseToTitle(
+													video.muxStatus || "error",
+												)}
 											</div>
 										</TableCell>
 										<TableCell>Date</TableCell>
