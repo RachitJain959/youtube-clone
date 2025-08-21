@@ -96,7 +96,11 @@ const VideosSectionSuspense = () => {
 										</TableCell>
 										<TableCell>{video.title}</TableCell>
 										<TableCell>Visibility</TableCell>
-										<TableCell>Status</TableCell>
+										<TableCell>
+											<div className="flex items-center">
+												{video.muxStatus}
+											</div>
+										</TableCell>
 										<TableCell>Date</TableCell>
 										<TableCell>Views</TableCell>
 										<TableCell>Comments</TableCell>
