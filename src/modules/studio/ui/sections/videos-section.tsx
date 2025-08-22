@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail";
 import { SnakeCaseToTitle } from "@/lib/utils";
+import { format } from "date-fns";
 
 export const VideosSection = () => {
 	return (
@@ -105,7 +106,12 @@ const VideosSectionSuspense = () => {
 												)}
 											</div>
 										</TableCell>
-										<TableCell>Date</TableCell>
+										<TableCell>
+											{format(
+												new Date(video.createdAt),
+												"dd MM yyyy",
+											)}
+										</TableCell>
 										<TableCell>Views</TableCell>
 										<TableCell>Comments</TableCell>
 										<TableCell>Likes</TableCell>
