@@ -106,10 +106,10 @@ const VideosSectionSuspense = () => {
 												)}
 											</div>
 										</TableCell>
-										<TableCell>
+										<TableCell className="text-sm truncate">
 											{format(
 												new Date(video.createdAt),
-												"dd MM yyyy",
+												"d MMM yyyy",
 											)}
 										</TableCell>
 										<TableCell>Views</TableCell>
