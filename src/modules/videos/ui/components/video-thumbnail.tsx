@@ -25,6 +25,7 @@ export const VideoThumbnail = ({
 					className="size-full object-cover group-hover:opacity-0"
 				/>
 				<Image
+					unoptimized={!!previewUrl} // priviewUrl crash optimiztion: upstream image response timed out for https://image.mux.com/{playbackId}/animated.gif
 					src={previewUrl ?? "/placeholder.svg"}
 					alt={title}
 					fill
