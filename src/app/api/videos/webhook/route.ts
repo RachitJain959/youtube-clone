@@ -110,6 +110,32 @@ export const POST = async (request: Request) => {
 				.where(eq(videos.muxUploadId, data.upload_id));
 			break;
 		}
+
+		case "video.asset.track.ready": {
+			const data =
+				payload.data as VideoAssetTrackReadyWebhookEvent["data"] & {
+					asset_id: string; // Fix for unrecognized asset_id bug
+				};
+
+			console.log("Track Ready");
+
+			const assetId = data.asset_id;
+			const trackId = data.id;
+			const status = data.status;
+
+			// TypeScript thinks that asset_id does not exist
+			if (!assetId)
+				return new Response("Missing asset_id", { status: 400 });
+
+			await db
+				.update(videos)
+				.set({
+					muxTrackId: trackId,
+					muxStatus: status,
+				})
+				.where(eq(videos.muxUploadId, assetId));
+			break;
+		}
 	}
 
 	return new Response("Webhook received", { status: 200 });
