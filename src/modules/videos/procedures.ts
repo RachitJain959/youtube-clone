@@ -12,6 +12,13 @@ export const videosRouter = createTRPCRouter({
 				// passthrough: metadata for video to identify which user uploads video, as video will not be uploaded directly. webhook is created with this metadata
 				passthrough: userId,
 				playback_policy: ["public"],
+				input: [
+					{
+						generated_subtitles: [
+							{ language_code: "en", name: "English" },
+						],
+					},
+				],
 			},
 			cors_origin: "*", //TODO: in production, set to your url
 		});
