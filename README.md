@@ -205,3 +205,10 @@ bunx create-next-app@15.6.1
         - delete from database
     6. Handle 'video.asset.track.ready' event
         - update trackId and trackStatus
+
+12. Video Form:
+    1. Add skeleton to videos section
+    2. Create video form page
+    3. Create video player
+    4. Add ability to update video info
+        - Title, Description, Visibility, Category
