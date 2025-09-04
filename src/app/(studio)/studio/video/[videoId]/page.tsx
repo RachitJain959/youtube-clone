@@ -1,3 +1,4 @@
+import { VideoView } from "@/modules/studio/ui/view/video-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 // fetching calls needs it to be dynmic
@@ -11,7 +12,11 @@ const Page = async ({ params }: PageProps) => {
 	const { videoId } = await params;
 
 	void trpc.studio.getOne({ id: videoId });
-	return <HydrateClient>Video Id</HydrateClient>;
+	return (
+		<HydrateClient>
+			<VideoView videoId={videoId} />
+		</HydrateClient>
+	);
 };
 
 export default Page;
