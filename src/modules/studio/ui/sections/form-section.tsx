@@ -3,6 +3,8 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
+// import { useForm } from "";
+
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/trpc/client";
 import {
@@ -34,6 +36,8 @@ const FormSectionSkeleton = () => {
 const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
 
+	const form = useForm();
+
 	return (
 		<div className="flex items-center justify-between mb-6 w-full">
 			<div>
@@ -47,6 +51,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 					Save
 				</Button>
 				<DropdownMenu>
+					{/* asChild: MenuTrigger is a button in itself, adding another button is buggy. asChild makes it the child element instead */}
 					<DropdownMenuTrigger asChild>
 						<Button variant="ghost" size="icon">
 							<MoreVerticalIcon />
