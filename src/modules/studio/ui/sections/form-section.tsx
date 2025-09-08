@@ -1,22 +1,31 @@
 "use client";
+import { trpc } from "@/trpc/client";
 
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { MoreVerticalIcon, TrashIcon } from "lucide-react";
 
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { videoUpdateSchema } from "@/db/schema";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { trpc } from "@/trpc/client";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVerticalIcon, TrashIcon } from "lucide-react";
-import { videoUpdateSchema } from "@/db/schema";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 
 interface FormSectionProps {
 	videoId: string;
@@ -78,6 +87,29 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
+					</div>
+				</div>
+				<div className="grip grid-cols-1 lg:grid-cols-5 gap-6">
+					<div className="space-y-8 lg:col-span-3">
+						<FormField
+							control={form.control}
+							name="title"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										Title
+										{/* TODO: Generate AI labels */}
+									</FormLabel>
+									<FormControl>
+										<Input
+											{...field}
+											placeholder="Add a title to your video"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 					</div>
 				</div>
 			</form>
