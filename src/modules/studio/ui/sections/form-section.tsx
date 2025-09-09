@@ -27,6 +27,13 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 interface FormSectionProps {
 	videoId: string;
@@ -48,6 +55,7 @@ const FormSectionSkeleton = () => {
 
 const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
+	const [categories] = trpc.categories.getMany.useSuspenseQuery();
 
 	// Check note
 	// creates a form that is typed against Zod schema, validates using that schema, and is pre-filled with existing video data.
@@ -129,6 +137,39 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 											placeholder="Add a description to your video"
 										/>
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="description"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										Description
+										{/* TODO: Generate AI labels */}
+									</FormLabel>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value ?? undefined}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Select a category" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{categories.map((category) => (
+												<SelectItem
+													value={category.id}
+													key={category.id}
+												>
+													{category.name}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
 									<FormMessage />
 								</FormItem>
 							)}
