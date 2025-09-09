@@ -26,6 +26,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FormSectionProps {
 	videoId: string;
@@ -104,6 +105,28 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 										<Input
 											{...field}
 											placeholder="Add a title to your video"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="description"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										Description
+										{/* TODO: Generate AI labels */}
+									</FormLabel>
+									<FormControl>
+										<Textarea
+											{...field}
+											value={field.value ?? ""}
+											rows={10}
+											className="resize-none pr-10"
+											placeholder="Add a description to your video"
 										/>
 									</FormControl>
 									<FormMessage />
