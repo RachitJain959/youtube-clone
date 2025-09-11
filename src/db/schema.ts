@@ -14,6 +14,7 @@ import {
 	createSelectSchema,
 	createUpdateSchema,
 } from "drizzle-zod";
+import { z } from "zod";
 
 export const users = pgTable(
 	"users",
@@ -78,7 +79,10 @@ export const videos = pgTable("videos", {
 });
 
 export const videoInsertSchema = createInsertSchema(videos);
-export const videoUpdateSchema = createUpdateSchema(videos);
+// export const videoUpdateSchema = createUpdateSchema(videos);
+export const videoUpdateSchema = createUpdateSchema(videos, {
+	visibility: z.enum(["private", "public"]),
+});
 export const videoSelectSchema = createSelectSchema(videos);
 
 // this type of relation is not required as the above foreign key works similarly. But important to learn for different type of relational queries like PlanetSpace where foreign key does not exist
