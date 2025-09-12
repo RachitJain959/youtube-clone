@@ -84,7 +84,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
-				<div className="flex items-center justify-between mb-6 w-full">
+				<div className="flex items-center justify-between mb-6">
 					<div>
 						<h1 className="text-2xl font-bold">Video Details</h1>
 						<p className="text-xs text-muted-foreground">
@@ -111,7 +111,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 						</DropdownMenu>
 					</div>
 				</div>
-				<div className="grip grid-cols-1 lg:grid-cols-5 gap-6">
+				<div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 					<div className="space-y-8 lg:col-span-3">
 						<FormField
 							control={form.control}
@@ -160,7 +160,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>
-										Description
+										Category
 										{/* TODO: Generate AI labels */}
 									</FormLabel>
 									<Select
@@ -187,6 +187,11 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 								</FormItem>
 							)}
 						/>
+					</div>
+					<div className="flex flex-col gap-y-8 lg:col-span-2">
+						<div className="flex flex-col gap-4  h-fit rounded-xl bg-[#F9F9F9] overflow-hidden">
+							<div className="aspect-video overflow-hidden relative"></div>
+						</div>
 					</div>
 				</div>
 			</form>
