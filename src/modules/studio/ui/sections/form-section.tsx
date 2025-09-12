@@ -34,6 +34,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
 
 interface FormSectionProps {
 	videoId: string;
@@ -54,8 +55,20 @@ const FormSectionSkeleton = () => {
 };
 
 const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
+	const utils = trpc.useUtils();
 	const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
 	const [categories] = trpc.categories.getMany.useSuspenseQuery();
+
+	const update = trpc.videos.update.useMutation({
+		onSuccess: () => {
+			utils.studio.getMany.invalidate();
+			utils.studio.getOne.invalidate({ id: videoId });
+			toast.success("Video Updated");
+		},
+		onError: () => {
+			toast.error("Something went wrong");
+		},
+	});
 
 	// Check note
 	// creates a form that is typed against Zod schema, validates using that schema, and is pre-filled with existing video data.
@@ -65,7 +78,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	});
 
 	const onSubmit = async (data: z.infer<typeof videoUpdateSchema>) => {
-		console.log(data);
+		update.mutate(data);
 	};
 
 	return (
@@ -79,7 +92,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 						</p>
 					</div>
 					<div className="flex items-center gap-x-2">
-						<Button type="submit" disabled={false}>
+						<Button type="submit" disabled={update.isPending}>
 							Save
 						</Button>
 						<DropdownMenu>
