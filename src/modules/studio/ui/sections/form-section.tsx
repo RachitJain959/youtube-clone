@@ -1,9 +1,14 @@
 "use client";
 import { trpc } from "@/trpc/client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { MoreVerticalIcon, TrashIcon } from "lucide-react";
+import {
+	CopyCheckIcon,
+	CopyIcon,
+	MoreVerticalIcon,
+	TrashIcon,
+} from "lucide-react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -36,6 +41,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
+import Link from "next/link";
 
 interface FormSectionProps {
 	videoId: string;
@@ -80,6 +86,19 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 
 	const onSubmit = async (data: z.infer<typeof videoUpdateSchema>) => {
 		update.mutate(data);
+	};
+
+	const fullUrl = `${process.env.VERCEL_URL || "https://localhost:3000"}/video/${videoId}`;
+
+	const [isCopied, setIsCopied] = useState(false);
+
+	const onCopy = async () => {
+		await navigator.clipboard.writeText(fullUrl);
+		setIsCopied(true);
+
+		setTimeout(() => {
+			setIsCopied(false);
+		}, 2000);
 	};
 
 	return (
@@ -196,6 +215,36 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 									playbackId={video.muxPlaybackId}
 									thumbnailUrl={video.thumbnailUrl}
 								/>
+							</div>
+							<div className="p-4 flex flex-col gap-y-6">
+								<div className="flex justify-between items-center gap-x-2">
+									<div className="flex flex-col gap-y-1">
+										<p className="text-muted-foreground text-xs">
+											Video Link
+										</p>
+										<div className="flex items-center gap-x-2">
+											<Link href={`/video/${video.id}`}>
+												<p className="line-clamp-1 text-sm text-blue-500">
+													{fullUrl}
+												</p>
+											</Link>
+											<Button
+												type="button"
+												variant="ghost"
+												size="icon"
+												className="shrink-0"
+												onClick={onCopy}
+												disabled={isCopied}
+											>
+												{isCopied ? (
+													<CopyCheckIcon />
+												) : (
+													<CopyIcon />
+												)}
+											</Button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
