@@ -212,3 +212,10 @@ bunx create-next-app@15.6.1
     3. Create video player
     4. Add ability to update video info
         - Title, Description, Visibility, Category
+
+13. Video Thumbnails:
+    1. Integrate UploadThing: https://docs.uploadthing.com/getting-started/appdir
+    2. Integrate thumbnail upload functionality
+    3. Integrate thumbnail restore functionality
+    4. Refactor thumbnail fields in the schema
+        - Proper UploadThing cleanup
