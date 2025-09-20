@@ -7,8 +7,11 @@ import {
 	CopyCheckIcon,
 	CopyIcon,
 	Globe2Icon,
+	ImagePlusIcon,
 	LockIcon,
 	MoreVerticalIcon,
+	RotateCcwIcon,
+	SparklesIcon,
 	TrashIcon,
 } from "lucide-react";
 
@@ -209,9 +212,37 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 													"/placehilder.svg"
 												}
 												fill
-												alt="Thumbnail"
 												className="object-cover"
+												alt="Thumbnail"
 											/>
+											<DropdownMenu>
+												<DropdownMenuTrigger asChild>
+													<Button
+														type="button"
+														size="icon"
+														className="bg-black/50 hover:bg-black/50 top-1 right-1 rounded-full absolute opacity-100 group-hover:opacity-100 md:opacity-0 size-7 duration-300"
+													>
+														<MoreVerticalIcon className="text-white" />
+													</Button>
+												</DropdownMenuTrigger>
+												<DropdownMenuContent
+													align="start"
+													side="right"
+												>
+													<DropdownMenuItem>
+														<ImagePlusIcon className="size-4 mr-1" />
+														Change
+													</DropdownMenuItem>
+													<DropdownMenuItem>
+														<SparklesIcon className="size-4 mr-1" />
+														AI Generated
+													</DropdownMenuItem>
+													<DropdownMenuItem>
+														<RotateCcwIcon className="size-4 mr-1" />
+														Restore
+													</DropdownMenuItem>
+												</DropdownMenuContent>
+											</DropdownMenu>
 										</div>
 									</FormControl>
 								</FormItem>
