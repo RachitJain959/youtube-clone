@@ -1,6 +1,7 @@
 "use client";
 
 import MuxPlayer from "@mux/mux-player-react";
+import { THUMBNAIL_FALLBACK } from "../../constants";
 
 interface VideoPlayerProps {
 	playbackId: string | null | undefined;
@@ -21,7 +22,7 @@ export const VideoPlayer = ({
 			playbackId={playbackId}
 			playerInitTime={0}
 			thumbnailTime={0}
-			poster={thumbnailUrl || "/placeholder.svg"}
+			poster={thumbnailUrl || THUMBNAIL_FALLBACK}
 			autoPlay={autoplay}
 			className="h-full w-full object-contain"
 			accentColor="#FF2056"
