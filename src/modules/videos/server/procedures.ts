@@ -7,7 +7,7 @@ import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 
 export const videosRouter = createTRPCRouter({
-	restore: protectedProcedure
+	restoreThumbnail: protectedProcedure
 		.input(z.object({ id: z.string().uuid() }))
 		.mutation(async ({ ctx, input }) => {
 			const { id: userId } = ctx.user;

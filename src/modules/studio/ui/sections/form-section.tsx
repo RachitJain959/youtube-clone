@@ -1,8 +1,12 @@
 "use client";
 import { trpc } from "@/trpc/client";
 
-import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { Suspense, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+
 import {
 	CopyCheckIcon,
 	CopyIcon,
@@ -22,6 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { videoUpdateSchema } from "@/db/schema";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -36,7 +41,6 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import {
 	Select,
 	SelectContent,
@@ -45,11 +49,8 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
-import Link from "next/link";
 import { SnakeCaseToTitle } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal";
 
 interface FormSectionProps {
@@ -83,6 +84,16 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 			utils.studio.getMany.invalidate();
 			utils.studio.getOne.invalidate({ id: videoId });
 			toast.success("Video Updated");
+		},
+		onError: () => {
+			toast.error("Something went wrong");
+		},
+	});
+	const restoreThumbnail = trpc.videos.restoreThumbnail.useMutation({
+		onSuccess: () => {
+			utils.studio.getMany.invalidate();
+			utils.studio.getOne.invalidate({ id: videoId });
+			toast.success("Thumbnail Restored");
 		},
 		onError: () => {
 			toast.error("Something went wrong");
@@ -256,7 +267,15 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 															<SparklesIcon className="size-4 mr-1" />
 															AI Generated
 														</DropdownMenuItem>
-														<DropdownMenuItem>
+														<DropdownMenuItem
+															onClick={() =>
+																restoreThumbnail.mutate(
+																	{
+																		id: videoId,
+																	},
+																)
+															}
+														>
 															<RotateCcwIcon className="size-4 mr-1" />
 															Restore
 														</DropdownMenuItem>
