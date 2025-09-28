@@ -22,6 +22,7 @@ export const videosRouter = createTRPCRouter({
 				throw new TRPCError({ code: "NOT_FOUND" });
 			}
 
+			// thumbnail cleanup before uploading new thumbnail
 			if (existingVideo.thumbnailKey) {
 				const utapi = new UTApi();
 
