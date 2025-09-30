@@ -219,3 +219,12 @@ bunx create-next-app@15.6.1
     3. Integrate thumbnail restore functionality
     4. Refactor thumbnail fields in the schema
         - Proper UploadThing cleanup
+
+14. AI Background Jobs:
+    1. INtegrate upstash workflow
+    2. Trigger background jobs
+    3. Setup OpenAI SDK
+    4. Add Background jobs:
+        - Generate title
+        - Generate description
+        - Generate thumbnail
