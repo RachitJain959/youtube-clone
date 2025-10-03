@@ -221,7 +221,7 @@ bunx create-next-app@15.6.1
         - Proper UploadThing cleanup
 
 14. AI Background Jobs:
-    1. INtegrate upstash workflow
+    1. Integrate upstash workflow
     2. Trigger background jobs
     3. Setup OpenAI SDK
     4. Add Background jobs:
