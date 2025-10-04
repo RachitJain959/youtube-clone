@@ -66,13 +66,12 @@ export const { POST } = serve(async (context) => {
 		},
 	});
 
-	// get text:
-
 	await context.run("update-video", async () => {
 		const title = body.choices[0]?.message.content;
 		if (title) {
 			throw new Error("Bad request");
 		}
+
 		await db
 			.update(videos)
 			.set({ title: title || video.title })
