@@ -228,3 +228,8 @@ bunx create-next-app@15.6.1
         - Generate title
         - Generate description
         - Generate thumbnail
+
+15. AI Thumbnail:
+    1. Create thumbnail prompt model
+    2. Create thumbnail generation workflow
+    3. Add skeleton to form-section loading state

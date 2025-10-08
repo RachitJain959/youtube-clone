@@ -230,7 +230,8 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 														})
 													}
 													disabled={
-														generateTitle.isPending
+														generateTitle.isPending ||
+														!video.muxTrackId
 													}
 												>
 													{generateTitle.isPending ? (
@@ -272,7 +273,8 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 														)
 													}
 													disabled={
-														generateDescription.isPending
+														generateDescription.isPending ||
+														!video.muxTrackId
 													}
 												>
 													{generateDescription.isPending ? (
