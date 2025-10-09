@@ -53,6 +53,7 @@ import { toast } from "sonner";
 import { SnakeCaseToTitle } from "@/lib/utils";
 import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal";
+import { ThumbnailGenerateModal } from "../components/thumbnail-generate-modal";
 
 interface FormSectionProps {
 	videoId: string;
@@ -78,6 +79,8 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
 	const [categories] = trpc.categories.getMany.useSuspenseQuery();
 
+	const [thumbnailGenerateModalOpen, setThumbnailGenerateModalOpen] =
+		useState(false);
 	const [thumbnailModalOpen, setThumbnailModalOpen] = useState(false);
 
 	const update = trpc.videos.update.useMutation({
@@ -111,17 +114,6 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 		},
 	});
 	const generateTitle = trpc.videos.generateTitle.useMutation({
-		onSuccess: () => {
-			toast.success("Background job started", {
-				description: "This may take some time",
-			});
-		},
-		onError: () => {
-			toast.error("Something went wrong");
-		},
-	});
-
-	const generateThumbnail = trpc.videos.generateThumbnail.useMutation({
 		onSuccess: () => {
 			toast.success("Background job started", {
 				description: "This may take some time",
@@ -169,6 +161,11 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 
 	return (
 		<>
+			<ThumbnailGenerateModal
+				videoId={videoId}
+				open={thumbnailGenerateModalOpen}
+				onOpenChange={setThumbnailGenerateModalOpen}
+			/>
 			<ThumbnailUploadModal
 				videoId={videoId}
 				open={thumbnailModalOpen}
@@ -344,10 +341,8 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 
 														<DropdownMenuItem
 															onClick={() =>
-																generateThumbnail.mutate(
-																	{
-																		id: videoId,
-																	},
+																setThumbnailGenerateModalOpen(
+																	true,
 																)
 															}
 														>

@@ -1,10 +1,21 @@
-import { ResponsiveModal } from "@/components/responsive-modal";
-import { Form } from "@/components/ui/form";
-import { UploadDropzone } from "@/lib/uploadthing";
-import { trpc } from "@/trpc/client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { trpc } from "@/trpc/client";
+
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { ResponsiveModal } from "@/components/responsive-modal";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 
 interface ThumbnailGenerateModalProps {
 	videoId: string;
@@ -28,12 +39,22 @@ export const ThumbnailGenerateModal = ({
 		},
 	});
 
-	const utils = trpc.useUtils();
+	const generateThumbnail = trpc.videos.generateThumbnail.useMutation({
+		onSuccess: () => {
+			toast.success("Background job started", {
+				description: "This may take some time",
+			});
+		},
+		onError: () => {
+			toast.error("Something went wrong");
+		},
+	});
 
-	const onUploadComplete = () => {
-		utils.studio.getOne.invalidate();
-		utils.studio.getMany.invalidate();
-		onOpenChange(false);
+	const onSubmit = (values: z.infer<typeof formSchema>) => {
+		generateThumbnail.mutate({
+			prompt: values.prompt,
+			id: videoId,
+		});
 	};
 
 	return (
@@ -42,7 +63,35 @@ export const ThumbnailGenerateModal = ({
 			open={open}
 			onOpenChange={onOpenChange}
 		>
-			<Form></Form>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className="flex flex-col gap-4"
+				>
+					<FormField
+						control={form.control}
+						name="prompt"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Prompt</FormLabel>
+								<FormControl>
+									<Textarea
+										{...field}
+										className="resize-none"
+										cols={30}
+										rows={5}
+										placeholder="Prompt for thumbnail"
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<div className="flex justify-end">
+						<Button type="submit">Generate</Button>
+					</div>
+				</form>
+			</Form>
 		</ResponsiveModal>
 	);
 };
