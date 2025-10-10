@@ -44,6 +44,8 @@ export const ThumbnailGenerateModal = ({
 			toast.success("Background job started", {
 				description: "This may take some time",
 			});
+			form.reset();
+			onOpenChange(false);
 		},
 		onError: () => {
 			toast.error("Something went wrong");
@@ -88,7 +90,12 @@ export const ThumbnailGenerateModal = ({
 						)}
 					/>
 					<div className="flex justify-end">
-						<Button type="submit">Generate</Button>
+						<Button
+							type="submit"
+							disabled={generateThumbnail.isPending}
+						>
+							Generate
+						</Button>
 					</div>
 				</form>
 			</Form>
