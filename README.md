@@ -233,3 +233,11 @@ bunx create-next-app@15.6.1
     1. Create thumbnail prompt model
     2. Create thumbnail generation workflow
     3. Add skeleton to form-section loading state
+
+16. Video Section:
+    1. Create video "getOne" procedure
+        - Inner join "user" (author information)
+    2. Prefetching process
+    3. Videos Section
+    4. Suggestions Section (Placeholder)
+    5. Coments Section (Placeholder)
