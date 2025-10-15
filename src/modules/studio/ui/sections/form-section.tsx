@@ -199,7 +199,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 		update.mutate(data);
 	};
 
-	const fullUrl = `${process.env.VERCEL_URL || "https://localhost:3000"}/video/${videoId}`;
+	const fullUrl = `${process.env.VERCEL_URL || "http://localhost:3000"}/videos/${videoId}`;
 
 	const [isCopied, setIsCopied] = useState(false);
 
@@ -474,7 +474,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 											</p>
 											<div className="flex items-center gap-x-2">
 												<Link
-													href={`/video/${video.id}`}
+													href={`/videos/${video.id}`}
 												>
 													<p className="line-clamp-1 text-sm text-blue-500">
 														{fullUrl}
