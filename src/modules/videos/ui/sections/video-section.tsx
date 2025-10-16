@@ -1,8 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/client";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { VideoPlayer } from "../components/video-player";
 
 interface VideoSectionProps {
 	videoId: string;
@@ -21,5 +23,21 @@ export const VideoSection = ({ videoId }: VideoSectionProps) => {
 const VideoSectionSuspense = ({ videoId }: VideoSectionProps) => {
 	const [video] = trpc.videos.getOne.useSuspenseQuery({ id: videoId });
 
-	return <div>{JSON.stringify(video)}</div>;
+	return (
+		<>
+			<div
+				className={cn(
+					"aspect-video bg-black rounded-xl overflow-hidden relative",
+					video.muxStatus !== "ready" && "rounded-b-none",
+				)}
+			>
+				<VideoPlayer
+					autoplay
+					onPlay={() => {}}
+					thumbnailUrl={video.thumbnailUrl}
+					playbackId={video.muxPlaybackId}
+				/>
+			</div>
+		</>
+	);
 };
