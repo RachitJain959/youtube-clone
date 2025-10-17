@@ -37,6 +37,7 @@ const VideoSectionSuspense = ({ videoId }: VideoSectionProps) => {
 					thumbnailUrl={video.thumbnailUrl}
 					playbackId={video.muxPlaybackId}
 				/>
+				{/* <VideoBanner status={video.muxStatus} /> */}
 			</div>
 		</>
 	);
