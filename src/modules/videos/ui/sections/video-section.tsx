@@ -34,7 +34,7 @@ const VideoSectionSuspense = ({ videoId }: VideoSectionProps) => {
 				)}
 			>
 				<VideoPlayer
-					autoplay
+					// autoplay
 					onPlay={() => {}}
 					thumbnailUrl={video.thumbnailUrl}
 					playbackId={video.muxPlaybackId}

@@ -3,6 +3,7 @@ import { VideoGetOneOutput } from "../../types";
 import { UserAvatar } from "@/components/user-avatar";
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { SubscriptionButton } from "@/modules/subscriptions/ui/components/subscription-button";
 
 interface VideoOwnerProps {
 	user: VideoGetOneOutput["user"];
@@ -32,8 +33,12 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
 					<Link href={`/studio/videos/${videoId}`}>Edit video</Link>
 				</Button>
 			) : (
-				// <SubscriptionButton />
-				<></>
+				<SubscriptionButton
+					onClick={() => {}}
+					disabled={false}
+					isSubscribed={false}
+					classname="flex-none"
+				/>
 			)}
 		</div>
 	);
