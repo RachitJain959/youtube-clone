@@ -22,6 +22,7 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
 						imageUrl={user.imageUrl}
 						name={user.name}
 					/>
+					{/* <UserInfo/> */}
 					<span className="text-sm text-muted-foreground line-clamp-1">
 						{/* TODO: properly fill subscribers count */}
 						{0} subscribers
