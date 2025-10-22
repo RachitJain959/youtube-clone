@@ -4,6 +4,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { SubscriptionButton } from "@/modules/subscriptions/ui/components/subscription-button";
+import { UserInfo } from "@/modules/users/ui/components/user-info";
 
 interface VideoOwnerProps {
 	user: VideoGetOneOutput["user"];
@@ -22,11 +23,13 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
 						imageUrl={user.imageUrl}
 						name={user.name}
 					/>
-					{/* <UserInfo/> */}
-					<span className="text-sm text-muted-foreground line-clamp-1">
-						{/* TODO: properly fill subscribers count */}
-						{0} subscribers
-					</span>
+					<div className="flex flex-col gap-1 min-w-0">
+						<UserInfo size="lg" name={user.name} />
+						<span className="text-sm text-muted-foreground line-clamp-1">
+							{/* TODO: properly fill subscribers count */}
+							{0} subscribers
+						</span>
+					</div>
 				</div>
 			</Link>
 			{clerkUserId === user.clerkId ? (
