@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ThumbsDownIcon, ThumbsUpIcon } from "lucide-react";
 
+// TODO: this is just a placeholder, fix reactions with proper api
 export const VideoReactions = () => {
 	const viewerReactions: "like" | "dislike" = "like";
 
