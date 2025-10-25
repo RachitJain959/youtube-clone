@@ -11,6 +11,7 @@ import {
 	Share2Icon,
 	Trash2Icon,
 } from "lucide-react";
+import { toast } from "sonner";
 
 interface VideoMenuProps {
 	videoId: string;
@@ -19,6 +20,13 @@ interface VideoMenuProps {
 }
 
 export const VideoMenu = ({ videoId, variant, onRemove }: VideoMenuProps) => {
+	const onShare = () => {
+		// TODO: change url if deploying in production/outside vercel
+		const fullUrl = `${process.env.VERCEL_URL || "http://localhost:3000"}/videos/${videoId}`;
+		navigator.clipboard.writeText(fullUrl);
+		toast.success("Link copied to clipboard");
+	};
+
 	return (
 		<div>
 			<DropdownMenu>
@@ -35,7 +43,7 @@ export const VideoMenu = ({ videoId, variant, onRemove }: VideoMenuProps) => {
 					align="end"
 					onClick={(e) => e.stopPropagation()}
 				>
-					<DropdownMenuItem onClick={() => {}}>
+					<DropdownMenuItem onClick={onShare}>
 						<Share2Icon className="mr-2 size-4" />
 						Share
 					</DropdownMenuItem>
