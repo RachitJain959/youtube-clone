@@ -241,3 +241,9 @@ bunx create-next-app@15.6.1
     3. Videos Section
     4. Suggestions Section (Placeholder)
     5. Coments Section (Placeholder)
+
+17. Video Views:
+    1. Create video views schema
+    2. Combine video views for 'getOne' video procedure
+    3. Create video vies creation procedure
+    4. Trigger video view creation on video play
