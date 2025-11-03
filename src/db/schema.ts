@@ -1,8 +1,9 @@
-import { relations } from "drizzle-orm";
+// import { relations } from "drizzle-orm";
 import {
 	integer,
 	pgEnum,
 	pgTable,
+	primaryKey,
 	text,
 	timestamp,
 	uniqueIndex,
@@ -29,10 +30,6 @@ export const users = pgTable(
 	(t) => [uniqueIndex("clerk_id_idx").on(t.clerkId)], // creating index on clerk_id to query faster
 );
 
-export const userRelations = relations(users, ({ many }) => ({
-	videos: many(videos),
-}));
-
 export const categories = pgTable(
 	"categories",
 	{
@@ -44,10 +41,6 @@ export const categories = pgTable(
 	},
 	(t) => [uniqueIndex("name_idx").on(t.name)], // creating index on clerk_id to query faster
 );
-
-export const categoryRelations = relations(users, ({ many }) => ({
-	videos: many(videos),
-}));
 
 export const videoVisibility = pgEnum("video_visibility", [
 	"private",
@@ -87,14 +80,57 @@ export const videoUpdateSchema = createUpdateSchema(videos, {
 });
 export const videoSelectSchema = createSelectSchema(videos);
 
+export const videoViews = pgTable(
+	"video_views",
+	{
+		userId: uuid("user_id")
+			.references(() => users.id, { onDelete: "cascade" })
+			.notNull(),
+		videoId: uuid("video_id")
+			.references(() => videos.id, { onDelete: "cascade" })
+			.notNull(),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+		updatedAt: timestamp("updated_at").defaultNow().notNull(),
+	},
+	(t) => [
+		primaryKey({
+			name: "video_views_pk",
+			columns: [t.userId, t.videoId],
+		}),
+	],
+);
+
+export const videoViewInsertSchema = createInsertSchema(videoViews);
+export const videoViewUpdateSchema = createUpdateSchema(videoViews);
+export const videoViewSelectSchema = createSelectSchema(videoViews);
+
 // this type of relation is not required as the above foreign key works similarly. But important to learn for different type of relational queries like PlanetSpace where foreign key does not exist
-export const vdeoRelations = relations(videos, ({ one }) => ({
-	users: one(users, {
-		fields: [videos.userId],
-		references: [users.id],
-	}),
-	category: one(categories, {
-		fields: [videos.categoryId],
-		references: [categories.id],
-	}),
-}));
+// export const userRelations = relations(users, ({ many }) => ({
+// 	videos: many(videos),
+// 	videoViews: many(videoViews),
+// }));
+// export const categoryRelations = relations(users, ({ many }) => ({
+// 	videos: many(videos),
+// }));
+// export const videoRelations = relations(videos, ({ one, many }) => ({
+// 	users: one(users, {
+// 		fields: [videos.userId],
+// 		references: [users.id],
+// 	}),
+// 	category: one(categories, {
+// 		fields: [videos.categoryId],
+// 		references: [categories.id],
+// 	}),
+// 	views: many(videoViews),
+// }));
+// this type of relation is not required as the above foreign key works similarly. But important to learn for different type of relational queries like PlanetSpace where foreign key does not exist
+// export const videoViewsRelations = relations(videoViews, ({ one }) => ({
+// 	users: one(users, {
+// 		fields: [videoViews.userId],
+// 		references: [users.id],
+// 	}),
+// 	videos: one(videos, {
+// 		fields: [videoViews.videoId],
+// 		references: [videos.id],
+// 	}),
+// }));
