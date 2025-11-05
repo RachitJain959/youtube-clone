@@ -1,3 +1,4 @@
+import { videoViews } from "./../../../db/schema";
 import { db } from "@/db";
 import { z } from "zod";
 import { users, videos, videoUpdateSchema } from "@/db/schema";
@@ -20,6 +21,11 @@ export const videosRouter = createTRPCRouter({
 				.select({
 					...getTableColumns(videos),
 					user: { ...getTableColumns(users) },
+					// just counting views, for deeper queires use common table expression with innerJoin then query
+					viewCount: db.$count(
+						videoViews,
+						eq(videoViews.videoId, videos.id),
+					),
 				})
 				.from(videos)
 				.innerJoin(users, eq(videos.userId, users.id))
