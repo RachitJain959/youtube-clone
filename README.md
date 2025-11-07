@@ -247,3 +247,9 @@ bunx create-next-app@15.6.1
     2. Combine video views for 'getOne' video procedure
     3. Create video vies creation procedure
     4. Trigger video view creation on video play
+
+18. Video Reactions:
+    1. Create videoReactions schema
+    2. Combine videoReactions for 'getOne' video procedure
+    3. Create videoReactions like & dislike procedure
+    4. Connect videoReactions component with new API
