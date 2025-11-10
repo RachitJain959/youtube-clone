@@ -50,4 +50,49 @@ export const VideoReactionsRouter = createTRPCRouter({
 
 			return createdVideoReaction;
 		}),
+	dislike: protectedProcedure
+		.input(z.object({ videoId: z.string().uuid() }))
+		.mutation(async ({ ctx, input }) => {
+			const { id: userId } = ctx.user;
+			const { videoId } = input;
+
+			const [existingVideoReactionDislike] = await db
+				.select()
+				.from(videoReactions)
+				.where(
+					and(
+						eq(videoReactions.videoId, videoId),
+						eq(videoReactions.userId, userId),
+						eq(videoReactions.type, "like"),
+					),
+				);
+
+			if (existingVideoReactionDislike) {
+				const [deletedViewerReaction] = await db
+					.delete(videoReactions)
+					.where(
+						and(
+							eq(videoReactions.videoId, videoId),
+							eq(videoReactions.userId, userId),
+						),
+					)
+					.returning();
+
+				return deletedViewerReaction;
+			}
+
+			const [createdVideoReaction] = await db
+				.insert(videoReactions)
+				.values({ userId, videoId, type: "dislike" })
+				// check notes
+				.onConflictDoUpdate({
+					target: [videoReactions.videoId, videoReactions.userId],
+					set: {
+						type: "dislike",
+					},
+				})
+				.returning();
+
+			return createdVideoReaction;
+		}),
 });
