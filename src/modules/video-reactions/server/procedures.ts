@@ -4,7 +4,7 @@ import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { and, eq } from "drizzle-orm";
 import z from "zod";
 
-export const VideoReactionsRouter = createTRPCRouter({
+export const videoReactionsRouter = createTRPCRouter({
 	like: protectedProcedure
 		.input(z.object({ videoId: z.string().uuid() }))
 		.mutation(async ({ ctx, input }) => {
