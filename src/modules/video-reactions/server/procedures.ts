@@ -63,7 +63,7 @@ export const videoReactionsRouter = createTRPCRouter({
 					and(
 						eq(videoReactions.videoId, videoId),
 						eq(videoReactions.userId, userId),
-						eq(videoReactions.type, "like"),
+						eq(videoReactions.type, "dislike"),
 					),
 				);
 
