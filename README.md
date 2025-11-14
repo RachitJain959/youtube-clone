@@ -253,3 +253,9 @@ bunx create-next-app@15.6.1
     2. Combine videoReactions for 'getOne' video procedure
     3. Create videoReactions like & dislike procedure
     4. Connect videoReactions component with new API
+
+19. Subscriptions:
+    1. Create Subscriptions schema
+    2. Combine Subscriptions for 'getOne' videos procedure
+    3. Create Subscriptions procedures
+    4. Connect SubscriptionButton with the new API
