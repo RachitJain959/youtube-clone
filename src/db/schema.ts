@@ -35,9 +35,17 @@ export const userRelations = relations(users, ({ many }) => ({
 	videoViews: many(videoViews),
 	videoReactions: many(videoReactions),
 }));
-export const categoryRelations = relations(users, ({ many }) => ({
-	videos: many(videos),
-}));
+
+export const subscriptions = pgTable("subscriptions", {
+	viewerId: uuid("viewer_id")
+		.references(() => users.id, { onDelete: "cascade" })
+		.notNull(),
+	creatorId: uuid("creator_id")
+		.references(() => users.id, { onDelete: "cascade" })
+		.notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
 
 export const categories = pgTable(
 	"categories",
@@ -50,6 +58,10 @@ export const categories = pgTable(
 	},
 	(t) => [uniqueIndex("name_idx").on(t.name)], // creating index on clerk_id to query faster
 );
+
+export const categoryRelations = relations(users, ({ many }) => ({
+	videos: many(videos),
+}));
 
 export const videoVisibility = pgEnum("video_visibility", [
 	"private",
