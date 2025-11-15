@@ -47,6 +47,17 @@ export const subscriptions = pgTable("subscriptions", {
 	updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const subscriptionsRelations = relations(subscriptions, ({ one }) => ({
+	viewerId: one(users, {
+		fields: [subscriptions.viewerId],
+		references: [users.id],
+	}),
+	creatorId: one(users, {
+		fields: [subscriptions.creatorId],
+		references: [users.id],
+	}),
+}));
+
 export const categories = pgTable(
 	"categories",
 	{
