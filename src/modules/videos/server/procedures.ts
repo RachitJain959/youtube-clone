@@ -1,4 +1,8 @@
-import { videoReactions, videoViews } from "./../../../db/schema";
+import {
+	subscriptions,
+	videoReactions,
+	videoViews,
+} from "./../../../db/schema";
 import { db } from "@/db";
 import { z } from "zod";
 import { users, videos, videoUpdateSchema } from "@/db/schema";
@@ -9,7 +13,7 @@ import {
 	protectedProcedure,
 } from "@/trpc/init";
 import { TRPCError } from "@trpc/server";
-import { and, eq, getTableColumns, inArray } from "drizzle-orm";
+import { and, eq, getTableColumns, inArray, isNotNull } from "drizzle-orm";
 import { UTApi } from "uploadthing/server";
 import { workflow } from "@/lib/workflow";
 
@@ -43,12 +47,29 @@ export const videosRouter = createTRPCRouter({
 						inArray(videoReactions.userId, userId ? [userId] : []),
 					),
 			);
+			const viewerSubscriptions = db.$with("viewer_subscriptions").as(
+				db
+					.select()
+					.from(subscriptions)
+					.where(
+						inArray(subscriptions.viewerId, userId ? [userId] : []),
+					),
+			);
 
 			const [existingVideo] = await db
-				.with(viewerReactions)
+				.with(viewerReactions, viewerSubscriptions)
 				.select({
 					...getTableColumns(videos),
-					user: { ...getTableColumns(users) },
+					user: {
+						...getTableColumns(users),
+						subscriberCount: db.$count(
+							subscriptions,
+							eq(subscriptions.creatorId, users.id),
+						),
+						viewerSubscribed: isNotNull(
+							viewerSubscriptions.viewerId,
+						).mapWith(Boolean), // isNotNull returns an unkwown type sql<boolean>`${isNotNull(...)-correct exp}
+					},
 					// just counting views, for deeper queires use common table expression with innerJoin then query
 					viewCount: db.$count(
 						videoViews,
@@ -75,6 +96,10 @@ export const videosRouter = createTRPCRouter({
 				.leftJoin(
 					viewerReactions,
 					eq(viewerReactions.videoId, videos.id),
+				)
+				.leftJoin(
+					viewerSubscriptions,
+					eq(viewerSubscriptions.creatorId, users.id),
 				)
 				.where(eq(videos.id, input.id));
 			// .groupBy(videos.id, viewerReactions.type, users.id);
