@@ -27,7 +27,7 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
 						<UserInfo size="lg" name={user.name} />
 						<span className="text-sm text-muted-foreground line-clamp-1">
 							{/* TODO: properly fill subscribers count */}
-							{0} subscribers
+							{user.subscriberCount} subscribers
 						</span>
 					</div>
 				</div>
