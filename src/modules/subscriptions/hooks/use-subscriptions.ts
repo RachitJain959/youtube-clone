@@ -26,14 +26,30 @@ export const useSubscriptions = ({
 			}
 		},
 		onError: (error) => {
-			toast.error('Something went wrong');\
+			toast.error("Something went wrong");
 
-            if(error.data?.code === 'UNAUTHORIZED'){
-                clerk.openSignIn()
-            }
+			if (error.data?.code === "UNAUTHORIZED") {
+				clerk.openSignIn();
+			}
 		},
 	});
-	const unsubscribe = trpc.subscriptions.remove.useMutation();
+	const unsubscribe = trpc.subscriptions.remove.useMutation({
+		onSuccess: () => {
+			toast.success("Un-Subscribed");
+			// TODO: reinvalidate subscriptions.getMany, users.getOne
+
+			if (fromVideoId) {
+				utils.videos.getOne.invalidate({ id: fromVideoId });
+			}
+		},
+		onError: (error) => {
+			toast.error("Something went wrong");
+
+			if (error.data?.code === "UNAUTHORIZED") {
+				clerk.openSignIn();
+			}
+		},
+	});
 
 	const isPending = subscribe.isPending || unsubscribe.isPending;
 
