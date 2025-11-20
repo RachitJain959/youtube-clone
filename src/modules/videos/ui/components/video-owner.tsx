@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { SubscriptionButton } from "@/modules/subscriptions/ui/components/subscription-button";
 import { UserInfo } from "@/modules/users/ui/components/user-info";
+import { useSubscriptions } from "@/modules/subscriptions/hooks/use-subscriptions";
 
 interface VideoOwnerProps {
 	user: VideoGetOneOutput["user"];
@@ -12,7 +13,12 @@ interface VideoOwnerProps {
 }
 
 export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
-	const { userId: clerkUserId } = useAuth();
+	const { userId: clerkUserId, isLoaded } = useAuth();
+	const { onClick, isPending } = useSubscriptions({
+		userId: user.id,
+		isSubscribed: user.viewerSubscribed,
+		fromVideoId: videoId,
+	});
 
 	return (
 		<div className="flex items-center justify-between sm:items-start sm:justify-start min-w-0 gap-3">
@@ -38,9 +44,9 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
 				</Button>
 			) : (
 				<SubscriptionButton
-					onClick={() => {}}
-					disabled={false}
-					isSubscribed={false}
+					onClick={onClick}
+					disabled={isPending || !isLoaded}
+					isSubscribed={user.viewerSubscribed}
 					classname="flex-none"
 				/>
 			)}
