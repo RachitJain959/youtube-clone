@@ -259,3 +259,8 @@ bunx create-next-app@15.6.1
     2. Combine Subscriptions for 'getOne' videos procedure
     3. Create Subscriptions procedures
     4. Connect SubscriptionButton with the new API
+
+20. Comments
+    1. Create comments schema
+    1. Create comments procedures
+    1. Create comments section
