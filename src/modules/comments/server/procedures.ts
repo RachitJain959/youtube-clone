@@ -1,6 +1,11 @@
 import { db } from "@/db";
 import { comments } from "@/db/schema";
-import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import {
+	baseProcedure,
+	createTRPCRouter,
+	protectedProcedure,
+} from "@/trpc/init";
+import { eq } from "drizzle-orm";
 import z from "zod";
 
 export const commentsRouter = createTRPCRouter({
@@ -16,5 +21,17 @@ export const commentsRouter = createTRPCRouter({
 				.returning();
 
 			return createdComment;
+		}),
+	getMany: baseProcedure
+		.input(z.object({ videoId: z.string().uuid() }))
+		.query(async ({ input }) => {
+			const { videoId } = input;
+
+			const data = await db
+				.select()
+				.from(comments)
+				.where(eq(comments.videoId, videoId));
+
+			return data;
 		}),
 });
