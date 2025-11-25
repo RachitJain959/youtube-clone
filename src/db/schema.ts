@@ -139,6 +139,13 @@ export const videoRelations = relations(videos, ({ one, many }) => ({
 	comments: many(comments),
 }));
 
+export const videoInsertSchema = createInsertSchema(videos);
+// export const videoUpdateSchema = createUpdateSchema(videos);
+export const videoUpdateSchema = createUpdateSchema(videos, {
+	visibility: z.enum(["private", "public"]),
+});
+export const videoSelectSchema = createSelectSchema(videos);
+
 export const comments = pgTable("comments", {
 	id: uuid("id").primaryKey().defaultRandom(),
 	videoId: uuid("video_id")
@@ -163,12 +170,9 @@ export const commentsRelations = relations(comments, ({ one }) => ({
 	}),
 }));
 
-export const videoInsertSchema = createInsertSchema(videos);
-// export const videoUpdateSchema = createUpdateSchema(videos);
-export const videoUpdateSchema = createUpdateSchema(videos, {
-	visibility: z.enum(["private", "public"]),
-});
-export const videoSelectSchema = createSelectSchema(videos);
+export const commentInsertSchema = createInsertSchema(comments);
+export const commentUpdateSchema = createUpdateSchema(comments);
+export const commentSelectSchema = createSelectSchema(comments);
 
 export const videoViews = pgTable(
 	"video_views",
