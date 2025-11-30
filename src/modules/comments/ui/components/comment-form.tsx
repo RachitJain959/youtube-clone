@@ -10,6 +10,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { UserAvatar } from "@/components/user-avatar";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormMessage,
+} from "@/components/ui/form";
 
 interface CommentFormProps {
 	videoId: string;
@@ -49,23 +56,44 @@ export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
 	};
 
 	return (
-		<form className="flex gap-4 group">
-			<UserAvatar
-				size="lg"
-				imageUrl={user?.imageUrl || "/user-placeholder.svg"}
-				name={user?.username || "User"}
-			/>
-			<div className="flex-1">
-				<Textarea
-					className="resize-none bg-transparent overflow-hidden min-h-0"
-					placeholder="Add a comment..."
+		<Form {...form}>
+			<form
+				className="flex gap-4 group"
+				onSubmit={form.handleSubmit(handleSubmit)}
+			>
+				<UserAvatar
+					size="lg"
+					imageUrl={user?.imageUrl || "/user-placeholder.svg"}
+					name={user?.username || "User"}
 				/>
-				<div className="flex mt-2 gap-2 justify-end">
-					<Button type="submit" size="sm">
-						Comment
-					</Button>
+				<div className="flex-1">
+					<FormField
+						name="value"
+						control={form.control}
+						render={({ field }) => (
+							<FormItem>
+								<FormControl>
+									<Textarea
+										{...field}
+										className="resize-none bg-transparent overflow-hidden min-h-0"
+										placeholder="Add a comment..."
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<div className="flex mt-2 gap-2 justify-end">
+						<Button
+							type="submit"
+							size="sm"
+							disabled={create.isPending}
+						>
+							Comment
+						</Button>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</Form>
 	);
 };
