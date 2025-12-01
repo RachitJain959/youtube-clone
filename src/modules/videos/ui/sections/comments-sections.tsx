@@ -26,8 +26,12 @@ export const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
 			<div className="flex flex-col gap-6">
 				<h1>0 Comments</h1>
 				<CommentForm videoId={videoId} />
+				<div className="flex flex-col gap-4 mt-2">
+					{comments.map((comment) => {
+						<CommentItem key={comment.id} comment={comment} />;
+					})}
+				</div>
 			</div>
-			{JSON.stringify(comments)}
 		</div>
 	);
 };
