@@ -77,6 +77,7 @@ export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
 										{...field}
 										className="resize-none bg-transparent overflow-hidden min-h-0"
 										placeholder="Add a comment..."
+										disabled={create.isPending}
 									/>
 								</FormControl>
 								<FormMessage />
