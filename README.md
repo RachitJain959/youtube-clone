@@ -264,3 +264,9 @@ bunx create-next-app@15.6.1
     1. Create comments schema
     1. Create comments procedures
     1. Create comments section
+
+21. Comments infinity loading
+    1. Modify comments 'getMnay' prcedure
+    2. Change prefetch() to prefetchInfinite()
+    3. Change Suspense() to useSuspenseInfiniteQuery()
+    4. Add InfiniteLoading component
