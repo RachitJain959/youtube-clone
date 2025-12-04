@@ -1,5 +1,6 @@
 "use client";
 
+import { InfiniteScroll } from "@/components/infinite-scroll";
 import { DEFAULT_LIMIT } from "@/constants";
 import { CommentForm } from "@/modules/comments/ui/components/comment-form";
 import { CommentItem } from "@/modules/comments/ui/components/comment-item";
@@ -22,7 +23,7 @@ export const CommentsSection = ({ videoId }: CommentsSectionProps) => {
 };
 
 export const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
-	const [comments] = trpc.comments.getMany.useSuspenseInfiniteQuery(
+	const [comments, query] = trpc.comments.getMany.useSuspenseInfiniteQuery(
 		{
 			videoId,
 			limit: DEFAULT_LIMIT,
@@ -47,6 +48,12 @@ export const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
 								/>
 							);
 						})}
+					<InfiniteScroll
+						isManual
+						hasNextPage={query.hasNextPage}
+						isFetchingNextPage={query.isFetchingNextPage}
+						fetchNextPage={query.fetchNextPage}
+					/>
 				</div>
 			</div>
 		</div>
