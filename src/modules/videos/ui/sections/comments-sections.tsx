@@ -37,11 +37,16 @@ export const CommentsSectionSuspense = ({ videoId }: CommentsSectionProps) => {
 				<h1>0 Comments</h1>
 				<CommentForm videoId={videoId} />
 				<div className="flex flex-col gap-4 mt-2">
-					{comments.map((comment) => {
-						return (
-							<CommentItem key={comment.id} comment={comment} />
-						);
-					})}
+					{comments.pages
+						.flatMap((page) => page.items)
+						.map((comment) => {
+							return (
+								<CommentItem
+									key={comment.id}
+									comment={comment}
+								/>
+							);
+						})}
 				</div>
 			</div>
 		</div>
