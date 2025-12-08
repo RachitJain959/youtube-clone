@@ -270,3 +270,9 @@ bunx create-next-app@15.6.1
     2. Change prefetch() to prefetchInfinite()
     3. Change Suspense() to useSuspenseInfiniteQuery()
     4. Add InfiniteLoading component
+
+22. Comments reactions:
+    1. Add 'commentReations' schema
+    2. Create 'commentReations' UI
+    3. Combine 'commentReations' with comments 'getMany' procedure
+    4. Add InfiniteLoading component
