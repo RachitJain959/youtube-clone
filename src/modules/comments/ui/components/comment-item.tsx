@@ -80,7 +80,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 								<ThumbsUpIcon className={cn()} />
 							</Button>
 							<span className="text-sm text-muted-foreground">
-								0
+								{comment.likeCount}
 							</span>
 							<Button
 								className="size-8"
@@ -92,7 +92,7 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 								<ThumbsDownIcon className={cn()} />
 							</Button>
 							<span className="text-sm text-muted-foreground">
-								0
+								{comment.dislikeCount}
 							</span>
 						</div>
 					</div>
