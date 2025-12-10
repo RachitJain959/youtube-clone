@@ -77,7 +77,12 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 								onClick={() => {}}
 								disabled={false}
 							>
-								<ThumbsUpIcon className={cn()} />
+								<ThumbsUpIcon
+									className={cn(
+										comment.viewerReaction === "like" &&
+											"fill-black",
+									)}
+								/>
 							</Button>
 							<span className="text-sm text-muted-foreground">
 								{comment.likeCount}
@@ -89,7 +94,12 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 								onClick={() => {}}
 								disabled={false}
 							>
-								<ThumbsDownIcon className={cn()} />
+								<ThumbsDownIcon
+									className={cn(
+										comment.viewerReaction === "dislike" &&
+											"fill-black",
+									)}
+								/>
 							</Button>
 							<span className="text-sm text-muted-foreground">
 								{comment.dislikeCount}
