@@ -275,3 +275,11 @@ bunx create-next-app@15.6.1
     1. Add 'commentReations' schema
     2. Create 'commentReations' UI
     3. Combine 'commentReations' with comments 'getMany' procedure
+
+23. Comment replies:
+    1. Extend comment schema by adding 'parentId' foreign key
+    2. Create UI for replies
+    3. Modify comments 'getMany' procedure by combining parentId
+    4. Create variants for 'CommentItem' component
+    5. Create variants for 'CommentForm' component
+    6. Create 'CommentReplies' component
