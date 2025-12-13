@@ -20,10 +20,19 @@ import {
 
 interface CommentFormProps {
 	videoId: string;
+	parentId: string;
 	onSuccess?: () => void;
+	onCancel?: () => void;
+	variant?: "comment" | "reply";
 }
 
-export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
+export const CommentForm = ({
+	videoId,
+	onSuccess,
+	parentId,
+	onCancel,
+	variant = "comment",
+}: CommentFormProps) => {
 	const { user } = useUser();
 
 	const clerk = useClerk();
@@ -55,6 +64,11 @@ export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
 		create.mutate(values);
 	};
 
+	const handleCancel = () => {
+		form.reset();
+		onCancel?.();
+	};
+
 	return (
 		<Form {...form}>
 			<form
@@ -76,7 +90,11 @@ export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
 									<Textarea
 										{...field}
 										className="resize-none bg-transparent overflow-hidden min-h-0"
-										placeholder="Add a comment..."
+										placeholder={
+											variant === "reply"
+												? "Reply to this comment..."
+												: "Add a comment..."
+										}
 										disabled={create.isPending}
 									/>
 								</FormControl>
@@ -85,12 +103,21 @@ export const CommentForm = ({ videoId, onSuccess }: CommentFormProps) => {
 						)}
 					/>
 					<div className="flex mt-2 gap-2 justify-end">
+						{onCancel && (
+							<Button
+								variant="ghost"
+								type="button"
+								onClick={handleCancel}
+							>
+								Cancel
+							</Button>
+						)}
 						<Button
 							type="submit"
 							size="sm"
 							disabled={create.isPending}
 						>
-							Comment
+							{variant === "reply" ? "Reply" : "Comment"}
 						</Button>
 					</div>
 				</div>

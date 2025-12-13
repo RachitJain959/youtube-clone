@@ -20,12 +20,21 @@ import {
 import { useAuth, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { CommentForm } from "./comment-form";
 
 interface CommentItemProps {
 	comment: CommentsGetManyOutput["items"][number];
+	variant?: "reply" | "comment";
 }
 
-export const CommentItem = ({ comment }: CommentItemProps) => {
+export const CommentItem = ({
+	comment,
+	variant = "comment",
+}: CommentItemProps) => {
+	const [isReplyOpen, setIsReplyOpen] = useState(false);
+	const [isRepliesOpen, setIsRepliesOpen] = useState(false);
+
 	const { userId } = useAuth();
 	const clerk = useClerk();
 	const utils = trpc.useUtils();
@@ -132,6 +141,16 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 								{comment.dislikeCount}
 							</span>
 						</div>
+						{variant === "comment" && (
+							<Button
+								variant="ghost"
+								className="h-8"
+								size="sm"
+								onClick={() => setIsReplyOpen(true)}
+							>
+								Reply
+							</Button>
+						)}
 					</div>
 				</div>
 				<DropdownMenu modal={false}>
@@ -141,10 +160,14 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
-						<DropdownMenuItem onClick={() => {}}>
-							<MessageSquareIcon className="szie-4" />
-							Reply
-						</DropdownMenuItem>
+						{variant === "comment" && (
+							<DropdownMenuItem
+								onClick={() => setIsReplyOpen(true)}
+							>
+								<MessageSquareIcon className="szie-4" />
+								Reply
+							</DropdownMenuItem>
+						)}
 						{comment.user.clerkId === userId && (
 							<DropdownMenuItem
 								onClick={() =>
@@ -158,6 +181,20 @@ export const CommentItem = ({ comment }: CommentItemProps) => {
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</div>
+			{isReplyOpen && variant === "comment" && (
+				<div className="mt-4 pl-14">
+					<CommentForm
+						variant="reply"
+						parentId={comment.id}
+						videoId={comment.videoId}
+						onCancel={() => setIsReplyOpen(false)}
+						onSuccess={() => {
+							setIsReplyOpen(false);
+							setIsRepliesOpen(true);
+						}}
+					/>
+				</div>
+			)}
 		</div>
 	);
 };
