@@ -36,14 +36,34 @@ export const commentsRouter = createTRPCRouter({
 			return removedComment;
 		}),
 	create: protectedProcedure
-		.input(z.object({ videoId: z.string().uuid(), value: z.string() }))
+		.input(
+			z.object({
+				videoId: z.string().uuid(),
+				value: z.string(),
+				parentId: z.string().uuid().nullish(),
+			}),
+		)
 		.mutation(async ({ ctx, input }) => {
-			const { videoId, value } = input;
+			const { videoId, value, parentId } = input;
 			const { id: userId } = ctx.user;
+
+			const [existingCommment] = await db
+				.select()
+				.from(comments)
+				.where(inArray(comments.id, parentId ? [parentId] : []));
+
+			// if (!existingCommment && parentId) => trying to reply to a reply
+			if (!existingCommment && parentId) {
+				throw new TRPCError({ code: "NOT_FOUND" });
+			}
+			// if (existingCommment?.parentId && parentId) => its a reply to an existing reply, i am preventing this
+			if (existingCommment?.parentId && parentId) {
+				throw new TRPCError({ code: "BAD_REQUEST" });
+			}
 
 			const [createdComment] = await db
 				.insert(comments)
-				.values({ userId, videoId, value })
+				.values({ userId, videoId, value, parentId })
 				.returning();
 
 			return createdComment;
