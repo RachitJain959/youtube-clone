@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import {
+	ChevronDownIcon,
+	ChevronUpIcon,
 	MessageSquareIcon,
 	MoreVerticalIcon,
 	ThumbsDownIcon,
@@ -193,6 +195,22 @@ export const CommentItem = ({
 							setIsRepliesOpen(true);
 						}}
 					/>
+				</div>
+			)}
+			{comment.replyCount > 0 && variant === "comment" && (
+				<div className="pl-14">
+					<Button
+						variant="tertiary"
+						onClick={() => setIsRepliesOpen((curr) => !curr)}
+						size="sm"
+					>
+						{isRepliesOpen ? (
+							<ChevronUpIcon />
+						) : (
+							<ChevronDownIcon />
+						)}
+						{comment.replyCount} replies
+					</Button>{" "}
 				</div>
 			)}
 		</div>
