@@ -283,3 +283,4 @@ bunx create-next-app@15.6.1
     4. Create variants for 'CommentItem' component
     5. Create variants for 'CommentForm' component
     6. Create 'CommentReplies' component
+    7. Create manual loading
