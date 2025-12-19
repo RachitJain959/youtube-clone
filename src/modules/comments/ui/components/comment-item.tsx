@@ -102,7 +102,7 @@ export const CommentItem = ({
 						</div>
 					</Link>
 					<p className="text-sm">{comment.value} </p>
-					{/* TODO: Comments reactions */}
+
 					<div className="flex items-center gap-2 mt-1">
 						<div className="flex items-center">
 							<Button

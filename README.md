@@ -284,3 +284,14 @@ bunx create-next-app@15.6.1
     5. Create variants for 'CommentForm' component
     6. Create 'CommentReplies' component
     7. Create manual loading
+
+24. Suggestions:
+    1. Create suggestions procedure
+    2. Prefetch suggestions
+    3. Create compact VideoRow card component
+        - suggestions, playlist items, small devices
+        - VideoRow card: search results, lagre devices
+    4. Create VideoGrid card component
+        - Feed grid
+        - fallback for small devices
+    5. Connect suggestions section with new API
