@@ -2,6 +2,7 @@
 
 import { DEFAULT_LIMIT } from "@/constants";
 import { trpc } from "@/trpc/client";
+import { VideoRowCard } from "../components/video-row-card";
 
 interface SuggestionsSectionPorps {
 	videoId: string;
@@ -17,5 +18,13 @@ export const SuggestionsSection = ({ videoId }: SuggestionsSectionPorps) => {
 			getNextPageParam: (lastPage) => lastPage.nextCursor,
 		},
 	);
-	return <div>{JSON.stringify(suggestions)}</div>;
+	return (
+		<div>
+			{suggestions.pages.flatMap((page) =>
+				page.items.map((video) => (
+					<VideoRowCard data={video} key={video.id} />
+				)),
+			)}
+		</div>
+	);
 };

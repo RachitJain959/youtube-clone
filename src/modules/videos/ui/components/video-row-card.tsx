@@ -1,5 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { VideoGetManyOutput } from "../../types";
+import Link from "next/link";
+import { VideoThumbnail } from "./video-thumbnail";
 
 const videoRowCardVariants = cva("group flex min-w-0", {
 	variants: {
@@ -25,15 +27,29 @@ const thumbnailVariants = cva("relative flex-none", {
 	},
 });
 
-interface videoRowCardProps extends VariantProps<typeof videoRowCardVariants> {
+interface VideoRowCardProps extends VariantProps<typeof videoRowCardVariants> {
 	data: VideoGetManyOutput["items"][number];
-	onRemove: () => void;
+	onRemove?: () => void;
 }
 
-export const videoRowCardSkeleton = () => {
+export const VideoRowCardSkeleton = () => {
 	return <div>Skeleton</div>;
 };
 
-export const videoRowCard = ({ data, onRemove, size }: videoRowCardProps) => {
-	return <div></div>;
+export const VideoRowCard = ({ data, onRemove, size }: VideoRowCardProps) => {
+	return (
+		<div className={videoRowCardVariants({ size })}>
+			<Link
+				href={`/videos/${data.id}`}
+				className={thumbnailVariants({ size })}
+			>
+				<VideoThumbnail
+					imageUrl={data.thumbnailUrl}
+					previewUrl={data.previewUrl}
+					title={data.title}
+					duration={data.duration}
+				/>
+			</Link>
+		</div>
+	);
 };
