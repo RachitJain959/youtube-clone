@@ -22,7 +22,7 @@ export const SuggestionsSection = ({ videoId }: SuggestionsSectionPorps) => {
 		<div>
 			{suggestions.pages.flatMap((page) =>
 				page.items.map((video) => (
-					<VideoRowCard data={video} key={video.id} />
+					<VideoRowCard data={video} key={video.id} size="compact" />
 				)),
 			)}
 		</div>
