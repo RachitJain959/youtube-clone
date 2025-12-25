@@ -4,21 +4,27 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { trpc } from "@/trpc/client";
 import { VideoRowCard } from "../components/video-row-card";
 import { VideoGridCard } from "../components/video-grid-card";
+import { InfiniteScroll } from "@/components/infinite-scroll";
 
 interface SuggestionsSectionPorps {
 	videoId: string;
+	isManual?: boolean;
 }
 
-export const SuggestionsSection = ({ videoId }: SuggestionsSectionPorps) => {
-	const [suggestions] = trpc.suggestions.getMany.useSuspenseInfiniteQuery(
-		{
-			videoId,
-			limit: DEFAULT_LIMIT,
-		},
-		{
-			getNextPageParam: (lastPage) => lastPage.nextCursor,
-		},
-	);
+export const SuggestionsSection = ({
+	videoId,
+	isManual,
+}: SuggestionsSectionPorps) => {
+	const [suggestions, query] =
+		trpc.suggestions.getMany.useSuspenseInfiniteQuery(
+			{
+				videoId,
+				limit: DEFAULT_LIMIT,
+			},
+			{
+				getNextPageParam: (lastPage) => lastPage.nextCursor,
+			},
+		);
 	return (
 		<>
 			<div className="hidden md:block space-y-3">
@@ -39,6 +45,12 @@ export const SuggestionsSection = ({ videoId }: SuggestionsSectionPorps) => {
 					)),
 				)}
 			</div>
+			<InfiniteScroll
+				isManual={isManual}
+				hasNextPage={query.hasNextPage}
+				fetchNextPage={query.fetchNextPage}
+				isFetchingNextPage={query.isFetchingNextPage}
+			/>
 		</>
 	);
 };
