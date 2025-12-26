@@ -295,3 +295,8 @@ bunx create-next-app@15.6.1
         - Feed grid
         - fallback for small devices
     5. Connect suggestions section with new API
+
+25. Revalidate:
+    - Add maual video revalidation
+        - in case webhooks fail
+        - in case webhooks fire out of order
