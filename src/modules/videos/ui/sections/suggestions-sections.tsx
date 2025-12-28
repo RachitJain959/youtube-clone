@@ -2,8 +2,14 @@
 
 import { DEFAULT_LIMIT } from "@/constants";
 import { trpc } from "@/trpc/client";
-import { VideoRowCard } from "../components/video-row-card";
-import { VideoGridCard } from "../components/video-grid-card";
+import {
+	VideoRowCard,
+	VideoRowCardSkeleton,
+} from "../components/video-row-card";
+import {
+	VideoGridCard,
+	VideoGridCardSkeleton,
+} from "../components/video-grid-card";
 import { InfiniteScroll } from "@/components/infinite-scroll";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -49,7 +55,7 @@ export const SuggestionsSectionSkeleton = () => {
 export const SuggestionsSectionSuspense = ({
 	videoId,
 	isManual,
-}: SuggestionsSectionPorps) => {
+}: SuggestionsSectionProps) => {
 	const [suggestions, query] =
 		trpc.suggestions.getMany.useSuspenseInfiniteQuery(
 			{
