@@ -1,6 +1,9 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import { APP_URL } from "@/constants";
-import { SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
+import { SearchIcon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 /* TODO: Add search functionality */
@@ -13,7 +16,7 @@ export const SearchInput = () => {
 
 		const url = new URL(
 			"/search",
-			APP_URL ? `https://${APP_URL}` : "https://localhost:3000",
+			APP_URL ? `https://${APP_URL}` : "http://localhost:3000",
 		);
 		const newQuery = value.trim();
 
@@ -28,17 +31,28 @@ export const SearchInput = () => {
 	};
 
 	return (
-		<form className="flex w-full w-max-[600px]">
+		<form className="flex w-full w-max-[600px]" onSubmit={handleSearch}>
 			<div className="relative w-full">
 				<input
+					value={value}
+					onChange={(e) => setValue(e.target.value)}
 					type="text"
 					placeholder="Search"
 					className="w-full pl-4 py-2 pr-12 rounded-l-full border focus:outline-none focus:border-blue-500"
 				/>
-
-				{/* TODO: Add/Remove search button */}
+				{value && (
+					<Button
+						type="button"
+						size="icon"
+						variant="ghost"
+						className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+					>
+						<XIcon className="text-gray-500" />
+					</Button>
+				)}
 			</div>
 			<button
+				disabled={!value.trim()}
 				type="submit"
 				className="px-5 py-2.5 bg-gray-100 rounded-r-full border border-l-0 hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50"
 			>
