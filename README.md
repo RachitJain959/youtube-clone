@@ -301,3 +301,9 @@ bunx create-next-app@15.6.1
         - in case webhooks fail
         - in case webhooks fire out of order
     - Add proper Id query to suggestions
+
+26. Search:
+    1. Create search procedure
+    2. Create search page
+    3. Prefetch search procedure
+    4. Connect search section to API
