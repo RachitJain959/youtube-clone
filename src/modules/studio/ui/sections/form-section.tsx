@@ -212,7 +212,7 @@ const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
 	};
 
 	// TODO: change url if deploying in production/outside vercel
-	const fullUrl = `${APP_URL || "http://localhost:3000"}/videos/${videoId}`;
+	const fullUrl = `${APP_URL}/videos/${videoId}`;
 
 	const [isCopied, setIsCopied] = useState(false);
 
