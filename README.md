@@ -307,3 +307,9 @@ bunx create-next-app@15.6.1
     2. Create search page
     3. Prefetch search procedure
     4. Connect search section to API
+
+27. Home feed
+    1. Create video procedures
+    2. Add Home page
+    3. Add trending page
+    4. Add subscriptions page
