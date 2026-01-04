@@ -23,7 +23,7 @@ interface ResultsSectionProps {
 export const ResultsSection = (props: ResultsSectionProps) => {
 	return (
 		<Suspense
-			// key={`${props.query}-${props.categoryId}`}
+			key={`${props.query}-${props.categoryId}`}
 			fallback={<ResultsSectionSkeleton />}
 		>
 			<ErrorBoundary fallback={<p>Error</p>}>
