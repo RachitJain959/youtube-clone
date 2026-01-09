@@ -1,5 +1,6 @@
 import { DEFAULT_LIMIT } from "@/constants";
-import { HydrateClient``, trpc } from "@/trpc/server";
+import { TrendingView } from "@/modules/home/ui/views/trending-view";
+import { HydrateClient, trpc } from "@/trpc/server";
 
 // keeping track of all prefetching-or else we will have build errors
 export const dynamic = "force-dynamic";
