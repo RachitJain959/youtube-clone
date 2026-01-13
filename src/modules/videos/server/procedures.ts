@@ -54,6 +54,7 @@ export const videosRouter = createTRPCRouter({
 				);
 
 			const data = await db
+				.with(viewerSubsciptions)
 				.select({
 					...getTableColumns(videos),
 					user: users,

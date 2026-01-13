@@ -1,5 +1,5 @@
 import { DEFAULT_LIMIT } from "@/constants";
-import { TrendingView } from "@/modules/home/ui/views/trending-view";
+import { SubscribedView } from "@/modules/home/ui/views/subscribed-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 // keeping track of all prefetching-or else we will have build errors
@@ -13,7 +13,7 @@ const Page = async () => {
 	return (
 		<div>
 			<HydrateClient>
-				<TrendingView />
+				<SubscribedView />
 			</HydrateClient>
 		</div>
 	);

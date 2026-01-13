@@ -1,4 +1,4 @@
-import { TrendingVideosSection } from "../sections/trending-videos-section";
+import { SubscribedVideosSection } from "../sections/subscribed-videos-section";
 
 export const SubscribedView = () => {
 	return (
@@ -9,7 +9,7 @@ export const SubscribedView = () => {
 					Videos from your favourite creators
 				</p>
 			</div>
-			<TrendingVideosSection />
+			<SubscribedVideosSection />
 		</div>
 	);
 };
