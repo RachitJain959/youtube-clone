@@ -19,7 +19,7 @@ const items = [
 	},
 	{
 		title: "Subscriptions",
-		url: "/feed/subscribed",
+		url: "/feed/subscriptions",
 		icon: PlaySquareIcon,
 		auth: true, //This pg will only be rendered to authorized users.
 	},

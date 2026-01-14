@@ -10,17 +10,17 @@ import { trpc } from "@/trpc/client";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-export const SubscribedVideosSection = () => {
+export const SubscriptionsVideosSection = () => {
 	return (
-		<Suspense fallback={<SubscribedVideosSectionSkeleton />}>
+		<Suspense fallback={<SubscriptionsVideosSectionSkeleton />}>
 			<ErrorBoundary fallback={<p>Error</p>}>
-				<SubscribedVideosSectionSuspense />
+				<SubscriptionsVideosSectionSuspense />
 			</ErrorBoundary>
 		</Suspense>
 	);
 };
 
-const SubscribedVideosSectionSkeleton = () => {
+const SubscriptionsVideosSectionSkeleton = () => {
 	return (
 		<div className="gap-4 gap-y-10 grid-cols-1 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 [@media(min-width:1920px)]:grid-cols-5 [@media(min-width:2200px)]:grid-cols-6">
 			{Array.from({ length: 18 }).map((_, index) => (
@@ -30,9 +30,9 @@ const SubscribedVideosSectionSkeleton = () => {
 	);
 };
 
-const SubscribedVideosSectionSuspense = () => {
+const SubscriptionsVideosSectionSuspense = () => {
 	const [videos, query] =
-		trpc.videos.getManySubscribed.useSuspenseInfiniteQuery(
+		trpc.videos.getManySubscriptions.useSuspenseInfiniteQuery(
 			{
 				limit: DEFAULT_LIMIT,
 			},

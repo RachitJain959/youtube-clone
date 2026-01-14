@@ -27,7 +27,7 @@ import { UTApi } from "uploadthing/server";
 import { workflow } from "@/lib/workflow";
 
 export const videosRouter = createTRPCRouter({
-	getManySubscribed: protectedProcedure
+	getManySubscriptions: protectedProcedure
 		// if you have any useSuspenseInfiniteQuery error
 		.input(
 			z.object({
