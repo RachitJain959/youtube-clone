@@ -313,3 +313,7 @@ bunx create-next-app@15.6.1
     2. Add Home page
     3. Add trending page
     4. Add subscriptions page
+
+28. Playlists
+    1. Create playlists procedure
+    2. Create history & liked videos pages
