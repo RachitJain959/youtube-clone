@@ -1,4 +1,4 @@
-import { TrendingVideosSection } from "../sections/trending-videos-section";
+import { HistoryVideosSection } from "../sections/history-videos-section";
 
 export const HistoryView = () => {
 	return (
@@ -9,7 +9,7 @@ export const HistoryView = () => {
 					Videos you have watched
 				</p>
 			</div>
-			<TrendingVideosSection />
+			<HistoryVideosSection />
 		</div>
 	);
 };
