@@ -10,6 +10,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
 
 const items = [
 	{
@@ -31,6 +32,7 @@ const items = [
 ];
 
 export const MainSection = () => {
+	const pathName = usePathname();
 	const clerk = useClerk();
 	const { isSignedIn } = useAuth();
 
@@ -43,7 +45,7 @@ export const MainSection = () => {
 							<SidebarMenuButton
 								tooltip={item.title}
 								asChild
-								isActive={false} // TODO: Change tolook at current pathname
+								isActive={pathName === item.url}
 								onClick={(e) => {
 									if (!isSignedIn && item.auth) {
 										e.preventDefault();
