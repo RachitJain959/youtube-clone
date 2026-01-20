@@ -1,4 +1,4 @@
-import { HistoryVideosSection } from "../sections/history-videos-section";
+import { LikedVideosSection } from "../sections/liked-videos-section";
 
 export const LikedView = () => {
 	return (
@@ -9,7 +9,7 @@ export const LikedView = () => {
 					Videos you have liked
 				</p>
 			</div>
-			<HistoryVideosSection />
+			<LikedVideosSection />
 		</div>
 	);
 };
