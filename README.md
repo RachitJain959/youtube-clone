@@ -317,3 +317,8 @@ bunx create-next-app@15.6.1
 28. Playlists
     1. Create playlists procedure
     2. Create history & liked videos pages
+
+29. Custom Playlists
+    1. Create playlists schema
+    2. Create playlists procedures
+    3. Create playlists page
