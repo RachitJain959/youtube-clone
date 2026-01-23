@@ -1,5 +1,12 @@
+import { HydrateClient } from "@/trpc/server";
+import { PlaylistsView } from "@/modules/playlists/ui/views/playlists-view";
+
 const Page = () => {
-	return <div>Playlists</div>;
+	return (
+		<HydrateClient>
+			<PlaylistsView />
+		</HydrateClient>
+	);
 };
 
 export default Page;
