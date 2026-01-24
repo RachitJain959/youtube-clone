@@ -1,11 +1,30 @@
-import { videoReactions, videoViews } from "./../../../db/schema";
+import { playlists, videoReactions, videoViews } from "./../../../db/schema";
 import { db } from "@/db";
 import { z } from "zod";
 import { users, videos } from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { and, desc, eq, getTableColumns, lt, or } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const playlistsRouter = createTRPCRouter({
+	create: protectedProcedure
+		.input(z.object({ name: z.string().min(1) }))
+		.mutation(async ({ input, ctx }) => {
+			const { name } = input;
+			const { id: userId } = ctx.user;
+
+			const [createdPlaylist] = await db
+				.insert(playlists)
+				.values({ name, userId })
+				.returning();
+
+			if (!createdPlaylist) {
+				throw new TRPCError({ code: "BAD_REQUEST" });
+			}
+
+			return createdPlaylist;
+		}),
+
 	getLiked: protectedProcedure
 		// if you have any useSuspenseInfiniteQuery error
 		.input(
