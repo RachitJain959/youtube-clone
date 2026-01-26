@@ -29,6 +29,7 @@ export const PlaylistsView = () => {
 					<PlusIcon />
 				</Button>
 			</div>
+			<PlaylistSection />
 		</div>
 	);
 };
