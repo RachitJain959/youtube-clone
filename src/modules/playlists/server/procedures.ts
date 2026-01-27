@@ -38,8 +38,8 @@ export const playlistsRouter = createTRPCRouter({
 					),
 					user: users,
 				})
-				.from(videos)
-				.innerJoin(users, eq(videos.userId, users.id))
+				.from(playlists)
+				.innerJoin(users, eq(playlists.userId, users.id))
 				.where(
 					and(
 						eq(playlists.userId, userId),
