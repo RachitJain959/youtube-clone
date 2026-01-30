@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 import { ListVideoIcon, PlayIcon } from "lucide-react";
 import Image from "next/image";
+import { useMemo } from "react";
 
 interface PlaylistThumbnailProps {
 	title: string;
@@ -16,8 +17,14 @@ export const PlaylistThumbnail = ({
 	className,
 	imageUrl,
 }: PlaylistThumbnailProps) => {
+	const compactViews = useMemo(() => {
+		return Intl.NumberFormat("en", {
+			notation: "compact",
+		}).format(videoCount);
+	}, [videoCount]);
+
 	return (
-		<div className={cn("relative pt-3 group", className)}>
+		<div className={cn("relative pt-3", className)}>
 			{/* Stack effect layers */}
 			<div className="relative">
 				{/* Background Layers */}
@@ -45,7 +52,7 @@ export const PlaylistThumbnail = ({
 			{/* Video Count Indicator */}
 			<div className="absolute right-2 bottom-2 px-1 py-0.5 rounded bg-black/80 text-white text-xs font-medium flex items-center gap-x-1">
 				<ListVideoIcon className="size-4" />
-				{videoCount} videos
+				{compactViews} videos
 			</div>
 		</div>
 	);

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PlaylistGetManyOutput } from "../../types";
 import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 import { PlaylistThumbnail } from "./playlist-thumbnail";
+import { PlaylistInfo } from "./playlist-info";
 
 interface PlaylistGridCardProps {
 	data: PlaylistGetManyOutput["items"][number];
@@ -16,6 +17,7 @@ export const PlaylistGridCard = ({ data }: PlaylistGridCardProps) => {
 					videoCount={data.videoCount}
 					imageUrl={THUMBNAIL_FALLBACK}
 				/>
+				<PlaylistInfo data={data} />
 			</div>
 		</Link>
 	);
