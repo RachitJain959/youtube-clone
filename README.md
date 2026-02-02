@@ -322,3 +322,8 @@ bunx create-next-app@15.6.1
     1. Create playlists schema
     2. Create playlists procedures
     3. Create playlists page
+
+30. Populating Playlists:
+    1. Create PlaylistAddModal component
+    2. Create 'getManyForVideo' playlist procedure
+    3. Create Add & remove procedures for playlists
