@@ -12,6 +12,66 @@ import { and, desc, eq, getTableColumns, lt, or, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 export const playlistsRouter = createTRPCRouter({
+	removeVideo: protectedProcedure
+		.input(
+			z.object({
+				playlistId: z.string().uuid(),
+				videoId: z.string().uuid(),
+			}),
+		)
+		.mutation(async ({ input, ctx }) => {
+			const { playlistId, videoId } = input;
+			const { id: userId } = ctx.user;
+
+			const [existingPlaylist] = await db
+				.select()
+				.from(playlists)
+				.where(eq(playlists.id, playlistId));
+
+			if (!existingPlaylist) {
+				throw new TRPCError({ code: "NOT_FOUND" });
+			}
+
+			if (existingPlaylist.userId !== userId) {
+				throw new TRPCError({ code: "UNAUTHORIZED" });
+			}
+
+			const [existingVideo] = await db
+				.select()
+				.from(videos)
+				.where(eq(videos.id, videoId));
+
+			if (!existingVideo) {
+				throw new TRPCError({ code: "NOT_FOUND" });
+			}
+
+			const [existingPlaylistVideo] = await db
+				.select()
+				.from(playlistVideos)
+				.where(
+					and(
+						eq(playlistVideos.playlistId, playlistId),
+						eq(playlistVideos.videoId, videoId),
+					),
+				);
+
+			if (!existingPlaylistVideo) {
+				throw new TRPCError({ code: "NOT_FOUND" });
+			}
+
+			const [removedPlaylistVideo] = await db
+				.delete(playlistVideos)
+				.where(
+					and(
+						eq(playlistVideos.playlistId, playlistId),
+						eq(playlistVideos.videoId, videoId),
+					),
+				)
+				.returning();
+
+			return removedPlaylistVideo;
+		}),
+
 	addVideo: protectedProcedure
 		.input(
 			z.object({
