@@ -327,3 +327,9 @@ bunx create-next-app@15.6.1
     1. Create PlaylistAddModal component
     2. Create 'getManyForVideo' playlist procedure
     3. Create Add & remove procedures for playlists
+
+31. Individual Playlists:
+    1. Create 'getVideos' procedure to load custom playlist's videos
+    2. Build custom playlist page
+    3. Add ability to delete a playlist
+    4. Add ability to remove a video from a playlist
