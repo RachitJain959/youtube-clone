@@ -7,11 +7,101 @@ import {
 import { db } from "@/db";
 import { z } from "zod";
 import { users, videos } from "@/db/schema";
-import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import {
+	baseProcedure,
+	createTRPCRouter,
+	protectedProcedure,
+} from "@/trpc/init";
 import { and, desc, eq, getTableColumns, lt, or, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 export const playlistsRouter = createTRPCRouter({
+	getCustom: baseProcedure
+		// if you have any useSuspenseInfiniteQuery error
+		.input(
+			z.object({
+				playlistId: z.string().uuid(),
+				cursor: z
+					.object({
+						id: z.string().uuid(),
+						updatedAt: z.date(),
+					})
+					.nullish(),
+				limit: z.number().min(1).max(100),
+			}),
+		)
+		.query(async ({ input }) => {
+			const { cursor, limit, playlistId } = input;
+
+			const videosFromPlaylist = db.$with("playlist_videos").as(
+				db
+					.select({
+						videoId: playlistVideos.videoId,
+					})
+					.from(playlistVideos)
+					.where(eq(playlistVideos.playlistId, playlistId)),
+			);
+
+			const data = await db
+				.with(videosFromPlaylist)
+				.select({
+					...getTableColumns(videos),
+					user: users,
+					viewCount: db.$count(
+						videoViews,
+						eq(videoViews.videoId, videos.id),
+					),
+					likeCount: db.$count(
+						videoReactions,
+						and(
+							eq(videoReactions.videoId, videos.id),
+							eq(videoReactions.type, "like"),
+						),
+					),
+					dislikeCount: db.$count(
+						videoReactions,
+						and(
+							eq(videoReactions.videoId, videos.id),
+							eq(videoReactions.type, "dislike"),
+						),
+					),
+				})
+				.from(videos)
+				.innerJoin(users, eq(videos.userId, users.id))
+				.innerJoin(
+					videosFromPlaylist,
+					eq(videosFromPlaylist.videoId, videos.id),
+				)
+				.where(
+					and(
+						eq(videos.visibility, "public"),
+						cursor
+							? or(
+									lt(videos.updatedAt, cursor.updatedAt),
+									and(
+										eq(videos.updatedAt, cursor.updatedAt),
+										lt(videos.id, cursor.id),
+									),
+								)
+							: undefined,
+					),
+				)
+				.orderBy(desc(videos.updatedAt), desc(videos.id))
+				// Add 1 to check if there is more data
+				.limit(limit + 1);
+
+			const hasMore = data.length > limit;
+			// Remove the last item if there is more data
+			const items = hasMore ? data.slice(0, -1) : data;
+
+			// Set the next cursor to the last item if thre is more data
+			const lastItem = items[items.length - 1];
+			const nextCursor = hasMore
+				? { id: lastItem.id, updatedAt: lastItem.updatedAt }
+				: null;
+
+			return { items, nextCursor };
+		}),
 	removeVideo: protectedProcedure
 		.input(
 			z.object({
