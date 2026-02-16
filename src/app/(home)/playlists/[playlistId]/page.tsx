@@ -1,5 +1,5 @@
 import { DEFAULT_LIMIT } from "@/constants";
-import { HistoryView } from "@/modules/playlists/ui/views/history-view";
+import { VideosView } from "@/modules/playlists/ui/views/videos-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 interface PageProps {
