@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 const Page = async ({ params }: PageProps) => {
 	const { playlistId } = await params;
 
+	void trpc.playlists.getOne.prefetch({ id: playlistId });
 	void trpc.playlists.getCustom.prefetchInfinite({
 		playlistId,
 		limit: DEFAULT_LIMIT,

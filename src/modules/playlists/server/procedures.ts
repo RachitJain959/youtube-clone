@@ -18,7 +18,7 @@ import { TRPCError } from "@trpc/server";
 export const playlistsRouter = createTRPCRouter({
 	remove: protectedProcedure
 		.input(z.object({ id: z.string().uuid() }))
-		.query(async ({ input, ctx }) => {
+		.mutation(async ({ input, ctx }) => {
 			const { id } = input;
 			const { id: userId } = ctx.user;
 
