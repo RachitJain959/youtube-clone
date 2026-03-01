@@ -333,3 +333,9 @@ bunx create-next-app@15.6.1
     2. Build custom playlist page
     3. Add ability to delete a playlist
     4. Add ability to remove a video from a playlist
+
+32. Users Page
+    1. Add 'bannerUrl' & 'bannerKey' to the user schema
+    2. Create 'user.getOne' procedure
+    3. Modify 'videos.getMany' procedure to accept user prop
+    4. Create userId page
