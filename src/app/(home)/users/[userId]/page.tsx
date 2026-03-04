@@ -1,3 +1,4 @@
+import { UserView } from "@/modules/users/ui/views/user-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 interface PageProps {
