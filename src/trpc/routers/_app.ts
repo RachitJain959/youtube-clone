@@ -13,7 +13,7 @@ import { videoReactionsRouter } from "@/modules/video-reactions/server/procedure
 import { commentReactionsRouter } from "@/modules/comment-reactions/server/procedures";
 
 export const appRouter = createTRPCRouter({
-	user: usersRouter,
+	users: usersRouter,
 	search: searchRouter,
 	videos: videosRouter,
 	studio: studioRouter,
