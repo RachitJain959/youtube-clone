@@ -8,7 +8,7 @@ interface PageProps {
 const Page = async ({ params }: PageProps) => {
 	const { userId } = await params;
 
-	void trpc.user.getOne.prefetch({ id: userId });
+	void trpc.users.getOne.prefetch({ id: userId });
 
 	return (
 		<HydrateClient>
