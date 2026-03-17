@@ -3,8 +3,15 @@
 import { trpc } from "@/trpc/client";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { UserPageBanner } from "../components/user-page-banner";
-import { UserPageInfo } from "../components/user-page-info";
+import {
+	UserPageBanner,
+	UserPageBannerSkeleton,
+} from "../components/user-page-banner";
+import {
+	UserPageInfo,
+	UserPageInfoSkeleton,
+} from "../components/user-page-info";
+import { Separator } from "@/components/ui/separator";
 
 interface UserSectionProps {
 	userId: string;
@@ -12,11 +19,21 @@ interface UserSectionProps {
 
 export const UserSection = (props: UserSectionProps) => {
 	return (
-		<Suspense fallback={<p>Loading...</p>}>
+		<Suspense fallback={<UserSectionSkeleton />}>
 			<ErrorBoundary fallback={<p>Error</p>}>
 				<UserSectionSuspense {...props} />
 			</ErrorBoundary>
 		</Suspense>
+	);
+};
+
+export const UserSectionSkeleton = () => {
+	return (
+		<div className="flex flex-col">
+			<UserPageBannerSkeleton />
+			<UserPageInfoSkeleton />
+			<Separator />
+		</div>
 	);
 };
 
