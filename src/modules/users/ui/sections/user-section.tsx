@@ -44,6 +44,7 @@ const UserSectionSuspense = ({ userId }: UserSectionProps) => {
 		<div className="flex flex-col">
 			<UserPageBanner user={user} />
 			<UserPageInfo user={user} />
+			<Separator />
 		</div>
 	);
 };
