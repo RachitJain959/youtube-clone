@@ -339,3 +339,7 @@ bunx create-next-app@15.6.1
     2. Create 'user.getOne' procedure
     3. Modify 'videos.getMany' procedure to accept user prop
     4. Create userId page
+
+33. Banner Upload:
+    1. Implement 'bannerUpload' in uploadthing/core.ts
+    2. Create BannerUploadModal
