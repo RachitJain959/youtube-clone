@@ -343,3 +343,8 @@ bunx create-next-app@15.6.1
 33. Banner Upload:
     1. Implement 'bannerUpload' in uploadthing/core.ts
     2. Create BannerUploadModal
+
+34. Subscriptions list
+    1. Create subscriptions 'getMany' procedure
+    2. Load recent subscriptions in sidebar
+    3. Create all subscriptions page
