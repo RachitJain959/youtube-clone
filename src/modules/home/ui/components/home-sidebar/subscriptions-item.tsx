@@ -14,11 +14,16 @@ import { trpc } from "@/trpc/client";
 import { DEFAULT_LIMIT } from "@/constants";
 import { UserAvatar } from "@/components/user-avatar";
 
-export const SubscriptionsSection = () => {
+export const SubscriptionsItem = () => {
 	const pathName = usePathname();
-	const { data } = trpc.subscriptions.getMany.useInfiniteQuery({
-		limit: DEFAULT_LIMIT,
-	});
+	const { data } = trpc.subscriptions.getMany.useInfiniteQuery(
+		{
+			limit: DEFAULT_LIMIT,
+		},
+		{
+			getNextPageParam: (lastPage) => lastPage.nextCursor,
+		},
+	);
 
 	return (
 		<SidebarGroup>
@@ -36,11 +41,11 @@ export const SubscriptionsSection = () => {
 									asChild
 									isActive={
 										pathName ===
-										`/users/${subscriptions.user.name}`
+										`/users/${subscriptions.user.id}`
 									}
 								>
 									<Link
-										href={`/users/${subscriptions.user.name}`}
+										href={`/users/${subscriptions.user.id}`}
 										className="flex items-center gap-4"
 									>
 										<UserAvatar

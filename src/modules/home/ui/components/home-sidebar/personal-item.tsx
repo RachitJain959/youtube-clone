@@ -1,11 +1,12 @@
 "use client";
-import Link from "next/link";
-import { FlameIcon, HomeIcon, PlaySquareIcon } from "lucide-react";
 import { useAuth, useClerk } from "@clerk/nextjs";
+import { HistoryIcon, ListVideoIcon, ThumbsUpIcon } from "lucide-react";
+import Link from "next/link";
 
 import {
 	SidebarGroup,
 	SidebarGroupContent,
+	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
@@ -14,30 +15,32 @@ import { usePathname } from "next/navigation";
 
 const items = [
 	{
-		title: "Home",
-		url: "/",
-		icon: HomeIcon,
+		title: "History",
+		url: "/playlists/history",
+		icon: HistoryIcon,
+		auth: true,
 	},
 	{
-		title: "Subscriptions",
-		url: "/feed/subscriptions",
-		icon: PlaySquareIcon,
-		auth: true, //This pg will only be rendered to authorized users.
+		title: "Liked videos",
+		url: "/playlists/liked",
+		icon: ThumbsUpIcon,
+		auth: true,
 	},
 	{
-		title: "Trending",
-		url: "/feed/trending",
-		icon: FlameIcon,
+		title: "Playlists",
+		url: "/playlists",
+		icon: ListVideoIcon,
+		auth: true,
 	},
 ];
 
-export const MainSection = () => {
+export const PersonalItem = () => {
 	const pathName = usePathname();
 	const clerk = useClerk();
 	const { isSignedIn } = useAuth();
-
 	return (
 		<SidebarGroup>
+			<SidebarGroupLabel>You</SidebarGroupLabel>
 			<SidebarGroupContent>
 				<SidebarMenu>
 					{items.map((item) => (
