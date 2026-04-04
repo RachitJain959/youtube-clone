@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { toast } from "sonner";
+import { SubscriptionItem } from "../components/subscription-item";
 
 export const SubscriptionsSection = () => {
 	return (
