@@ -90,7 +90,6 @@ export const SubscriptionsItem = () => {
 							>
 								<Link
 									prefetch
-									prefetch
 									href="/subscriptions"
 									className="flex items-center gap-4"
 								>
