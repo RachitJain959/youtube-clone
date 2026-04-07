@@ -348,3 +348,6 @@ bunx create-next-app@15.6.1
     1. Create subscriptions 'getMany' procedure
     2. Load recent subscriptions in sidebar
     3. Create all subscriptions page
+
+35. Final Improvements:
+    1. Improve responsive navbar
