@@ -72,7 +72,11 @@ export const CommentForm = ({
 	// 	},
 	// });
 
-	const handleSubmit = (values: z.infer<typeof commentInsertSchema>) => {
+	// const handleSubmit = (values: z.infer<typeof commentInsertSchema>) => {
+	// 	create.mutate(values);
+	// };
+
+	const handleSubmit = (values: z.infer<typeof formSchema>) => {
 		create.mutate(values);
 	};
 
