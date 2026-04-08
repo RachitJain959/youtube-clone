@@ -54,6 +54,7 @@ export const MainItem = () => {
 								}}
 							>
 								<Link
+									prefetch
 									href={item.url}
 									className="flex items-center gap-4"
 								>

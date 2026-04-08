@@ -10,7 +10,7 @@ export const HomeNavbar = () => {
 			<div className="flex items-center gap-4 w-full">
 				<div className="flex items-center flex-shrink-00">
 					<SidebarTrigger />
-					<Link href="/" className="hidden md:block">
+					<Link prefetch href="/" className="hidden md:block">
 						<div className="flex items-center gap-1 p-4">
 							<Image
 								src="/logo.svg"

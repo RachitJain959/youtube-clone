@@ -351,3 +351,5 @@ bunx create-next-app@15.6.1
 
 35. Final Improvements:
     1. Improve responsive navbar
+    2. Add loading.tsx pages
+        - Next.js optimizes for loading.tsx

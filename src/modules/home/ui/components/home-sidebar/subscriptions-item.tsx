@@ -64,6 +64,7 @@ export const SubscriptionsItem = () => {
 									}
 								>
 									<Link
+										prefetch
 										href={`/users/${subscriptions.user.id}`}
 										className="flex items-center gap-4"
 									>
@@ -88,6 +89,7 @@ export const SubscriptionsItem = () => {
 								isActive={pathName === "/subscriptions"}
 							>
 								<Link
+									prefetch
 									prefetch
 									href="/subscriptions"
 									className="flex items-center gap-4"
